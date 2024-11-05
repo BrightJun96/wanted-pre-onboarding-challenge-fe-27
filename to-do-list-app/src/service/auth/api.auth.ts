@@ -1,10 +1,10 @@
-import {API_URL} from "../api.instance.ts";
+import networkInstance from "../network.instance.ts";
 import {AUTH} from "../domainPath.ts";
 import {LoginRequest, SignupRequest} from "./types.ts";
 
 // 회원가입
 export async function fetchSignup(signupRequest:SignupRequest){
-    return fetch(`${API_URL}/${AUTH}/create`, {
+    return networkInstance(`${AUTH}/create`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -15,7 +15,7 @@ export async function fetchSignup(signupRequest:SignupRequest){
 
 // 로그인
 export async function fetchLogin(loginRequest:LoginRequest){
-    return fetch(`${API_URL}/${AUTH}/login`, {
+    return networkInstance(`${AUTH}/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
