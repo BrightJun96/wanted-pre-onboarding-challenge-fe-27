@@ -1,13 +1,16 @@
 import React from 'react';
-
-
+import {AUTH_PAGE_ENUM, AUTH_PAGE_TYPE} from "../../../constant/feature/auth/constant.ts";
+import "../../../constant/css/authForm.css"
+import "../../../css/index.css"
+import {FLEX_COLUMN_CONTAINER_CLASSNAME, FLEX_ROW_CONTAINER_CLASSNAME} from "../../../constant/css/constant.ts";
 
 export interface AuthFormType {
     email: string;
     password: string;
 }
-function AuthForm({networkRequest}:{
-    networkRequest:(form:AuthFormType)=>Promise<void>
+function AuthForm({networkRequest,pageType}:{
+    networkRequest:(form:AuthFormType)=>Promise<boolean|undefined> // API 요청 함수
+    pageType: AUTH_PAGE_TYPE // 페이지 타입
 }) {
 
     const [form,setForm] = React.useState<AuthFormType>({
@@ -17,7 +20,10 @@ function AuthForm({networkRequest}:{
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        await networkRequest(form)
+       const result = await networkRequest(form)
+        if(result) {
+            window.location.href = "/todo"
+        }
 
 
     }
@@ -28,12 +34,18 @@ function AuthForm({networkRequest}:{
             [key]: value
         })
     }
-    return (<form
+    return (
+        <div className={FLEX_COLUMN_CONTAINER_CLASSNAME}>
+            <h1>{pageType===AUTH_PAGE_ENUM.SIGNUP?"회원가입":"로그인"}</h1>
+        <form
+            className={`${FLEX_COLUMN_CONTAINER_CLASSNAME} auth-form-inner-container`}
             onSubmit={handleSubmit}
 
         >
-            <label>
-                Email
+            <label
+            className={"input-container"}
+            >
+                이메일
                 <input
                     type="email"
                     name={"email"}
@@ -41,8 +53,11 @@ function AuthForm({networkRequest}:{
                     onChange={(e) => handleSetFormValue("email", e.target.value)}
                 />
             </label>
-            <label>
-                Password
+            <label
+                className={"input-container"}
+
+            >
+                비밀번호
                 <input
                     type="password"
                     name={"password"}
@@ -50,8 +65,18 @@ function AuthForm({networkRequest}:{
                     onChange={(e) => handleSetFormValue("password", e.target.value)}
                 />
             </label>
-            <button type="submit">Sign up</button>
+            <div
+                className={FLEX_ROW_CONTAINER_CLASSNAME}
+
+            >
+                <button
+                    className={"custom-button"}
+                    type="submit">{
+                    AUTH_PAGE_ENUM.SIGNUP === pageType ? "회원가입" : "로그인"
+                }</button>
+            </div>
         </form>
+        </div>
     );
 }
 

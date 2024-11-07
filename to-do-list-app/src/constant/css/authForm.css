@@ -1,0 +1,22 @@
+
+
+.auth-form-container {
+  display: flex;
+    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.auth-form-inner-container{
+    gap: 10px;
+    align-items: start;
+}
+
+
+
+
+
+.input-container{
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
