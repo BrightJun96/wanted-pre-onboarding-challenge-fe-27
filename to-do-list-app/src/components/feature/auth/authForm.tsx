@@ -4,6 +4,7 @@ import "../../../css/auth/authForm.css"
 import "../../../css/index.css"
 import {FLEX_COLUMN_CONTAINER_CLASSNAME, FLEX_ROW_CONTAINER_CLASSNAME} from "../../../constant/css/constant.ts";
 import {useNavigate} from "react-router-dom";
+import CustomInput from "../../input/customInput.tsx";
 
 export interface AuthFormType {
     email: string;
@@ -45,29 +46,18 @@ function AuthForm({networkRequest,pageType}:{
             onSubmit={handleSubmit}
 
         >
-            <label
-            className={"input-container"}
-            >
-                이메일
-                <input
-                    type="email"
-                    name={"email"}
-                    value={form.email}
-                    onChange={(e) => handleSetFormValue("email", e.target.value)}
-                />
-            </label>
-            <label
-                className={"input-container"}
-
-            >
-                비밀번호
-                <input
-                    type="password"
-                    name={"password"}
-                    value={form.password}
-                    onChange={(e) => handleSetFormValue("password", e.target.value)}
-                />
-            </label>
+            <CustomInput
+                label={"이메일"}
+                value={form.email}
+                onChange={(value) => handleSetFormValue("email",value)}
+                inputType={"email"}
+            />
+            <CustomInput
+                label={"비밀번호"}
+                value={form.password}
+                onChange={(value) => handleSetFormValue("password",value)}
+                inputType={"password"}
+            />
             <div
                 className={FLEX_ROW_CONTAINER_CLASSNAME}
 

@@ -8,7 +8,7 @@ function useAuth() {
    // 페이지
    const loginPage = location.pathname === "/auth/login"
    const signupPage = location.pathname === "/auth/signup"
-   const todoPage = location.pathname === "/todo"
+   const todoPage = location.pathname.includes("/todo")
    const authPage = loginPage || signupPage
 
 

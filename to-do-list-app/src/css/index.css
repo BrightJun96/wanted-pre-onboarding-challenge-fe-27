@@ -27,6 +27,7 @@
     background-color: lightskyblue;
     border: none;
     cursor: pointer;
+    color: white;
   &:hover{
     background-color: lightblue;
   }
@@ -35,3 +36,12 @@
     cursor: not-allowed;
   }
 }
+
+
+/*인풋*/
+.input-container{
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
+

@@ -1,0 +1,44 @@
+.todo-page-container {
+  align-items: start;
+  gap:20px
+}
+
+.todo-list-container {
+ padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 700px;
+    overflow-y: scroll;
+    width: 400px;
+    border: 1px solid lightgray;
+border-radius: 12px;
+}
+
+.todo-item-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.todo-details-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 250px;
+  border: 1px solid lightgray;
+    border-radius: 12px;
+}
+
+.todo-add-button{
+  width: 100%;
+}
+
+.todo-register-container{
+
+}

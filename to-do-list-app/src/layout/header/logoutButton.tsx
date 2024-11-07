@@ -3,7 +3,8 @@ import {authStorage} from "../../helper/authStorage.ts";
 function LogoutButton() {
 
     function handleLogout() {
-     authStorage.deleteToken()
+         authStorage.deleteToken()
+        window.location.href = "/auth/login"
     }
     return (
         <button
