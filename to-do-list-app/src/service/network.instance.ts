@@ -17,7 +17,7 @@ async function networkInstance(endpoint: string, options?: CustomRequestInit):Pr
             'Content-Type': 'application/json',
             // 인증이 필요한 경우, 토큰을 헤더에 추가
             ...(options.auth &&{
-                Authorization: authStorage.getToken() ,
+                Authorization: authStorage.getToken()??undefined ,
             })
         }
     }

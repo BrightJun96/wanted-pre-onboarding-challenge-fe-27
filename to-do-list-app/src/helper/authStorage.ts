@@ -8,9 +8,8 @@ export class AuthStorage {
     this.storage = storage;
   }
     // 토큰 가져오기
-    getToken(): string {
-          this.exceptionToken();
-        return this.storage.getItem(TOKEN_KEY) as string    ;
+    getToken(): string|null {
+        return this.storage.getItem(TOKEN_KEY);
     }
 
     // 토큰 설정

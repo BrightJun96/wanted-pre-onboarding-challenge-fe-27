@@ -1,5 +1,6 @@
-import React from 'react';
 import useAuth from "../../helper/useAuth.ts";
+import Header from "../../layout/header/header.tsx";
+import {Outlet} from "react-router-dom";
 
 function Root() {
     // 인증 처리
@@ -7,21 +8,8 @@ function Root() {
 
     return (
         <div>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="/todo">할일</a>
-                    </li>
-                    <>
-                    <li>
-                        <a href="/auth/login">로그인</a>
-                    </li>
-                    <li>
-                        <a href="/auth/signup">회원가입</a>
-                    </li>
-                    </>
-                </ul>
-            </nav>
+            <Header/>
+            <Outlet/>
         </div>
     );
 }

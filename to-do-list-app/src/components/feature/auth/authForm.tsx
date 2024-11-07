@@ -1,6 +1,6 @@
 import React from 'react';
 import {AUTH_PAGE_ENUM, AUTH_PAGE_TYPE} from "../../../constant/feature/auth/constant.ts";
-import "../../../constant/css/authForm.css"
+import "../../../css/auth/authForm.css"
 import "../../../css/index.css"
 import {FLEX_COLUMN_CONTAINER_CLASSNAME, FLEX_ROW_CONTAINER_CLASSNAME} from "../../../constant/css/constant.ts";
 import {useNavigate} from "react-router-dom";
