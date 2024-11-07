@@ -31,7 +31,8 @@ export async function fetchGetTodoById(id:string){
     })
 
     if(response.ok){
-        return await response.json()
+        const result =  await response.json()
+        return result.data
     }else{
         window.alert("할일을 불러오는데 실패했습니다.")
     }

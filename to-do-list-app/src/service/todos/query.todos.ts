@@ -16,6 +16,7 @@ export function useQueryTodoDetails(detailsId:string) {
     return  useQuery({
         queryKey: ["todo",detailsId],
         queryFn: ()=>fetchGetTodoById(detailsId),
+        enabled: !!detailsId
     })
 
 }
@@ -42,8 +43,10 @@ export function useMutationUpdateTodo() {
             id:string,
             editTodoRequest:EditTodoRequest
         })=>fetchUpdateTodo(variables.id,variables.editTodoRequest),
-        onSuccess: () => {
+        onSuccess: (_,variables) => {
             queryClient.invalidateQueries({ queryKey: ['todos'] })
+            queryClient.invalidateQueries({ queryKey: ['todo',variables.id] })
+
         },
     })
 }
