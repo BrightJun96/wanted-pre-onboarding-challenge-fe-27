@@ -34,11 +34,7 @@ function TodoDetailsForm({
 
     const params = useParams()
 
-    // 상세 페이지 여부
-    const IsDetailsPage = TODO_PAGE_ENUM.UPDATE
-
-
-
+    const IsDetailsPage = pageType === TODO_PAGE_ENUM.UPDATE
     // 할일 등록 네트워크 요청
     async function networkAddTodo() {
        const response =  await fetchCreateTodo(todoForm)
@@ -85,7 +81,7 @@ function TodoDetailsForm({
     ) {
         event.preventDefault();
         // 등록, 수정 분기 처리
-        if(pageType === IsDetailsPage && params.id){
+        if(pageType === TODO_PAGE_ENUM.UPDATE && params.id){
             await networkUpdateTodo(params.id)
         }else{
             await networkAddTodo();
@@ -96,7 +92,7 @@ function TodoDetailsForm({
     // 버튼 비활성화 조건
     const ButtonDisabledCondition = todoForm.title === "" || todoForm.content === "";
     // 버튼 라벨
-    const ButtonLabel = pageType===IsDetailsPage? "수정":"등록"
+    const ButtonLabel = IsDetailsPage? "수정":"등록"
 
     useEffect(() => {
         async function networkFetchGetTodo(detailsId: string) {
@@ -110,7 +106,7 @@ function TodoDetailsForm({
 
         }
 
-        if((pageType===IsDetailsPage)&&params.id){
+        if((IsDetailsPage)&&params.id){
             networkFetchGetTodo(params.id)
 
         }
@@ -139,10 +135,11 @@ function TodoDetailsForm({
                     type={"submit"}
                     disabled={ButtonDisabledCondition}
                     label={ButtonLabel} />
-                {/*삭제*/}
-                <CustomButton
+                {/*삭제(상세 페이지의 경우만)*/}
+                {IsDetailsPage&&<CustomButton
                     label={"삭제"}
-                    onClick={() => networkDeleteTodo(params.id)}/>
+                    onClick={() => networkDeleteTodo(params.id)}
+                />}
             </form>
         </div>
     );
