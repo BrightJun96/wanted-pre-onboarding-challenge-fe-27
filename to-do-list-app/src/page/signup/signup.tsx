@@ -1,8 +1,11 @@
 import AuthForm, {AuthFormType} from "../../components/feature/auth/authForm.tsx";
 import {fetchSignup} from "../../service/auth/api.auth.ts";
-import {authLocalStorage} from "../../helper/authStorage.ts";
+import {authStorage} from "../../helper/authStorage.ts";
 import {AUTH_PAGE_ENUM} from "../../constant/feature/auth/constant.ts";
 
+/**
+ * 회원가입 페이지
+ */
 function Signup() {
 
     async function networkSignup(form:AuthFormType) {
@@ -18,7 +21,7 @@ function Signup() {
 
         if(response.ok){
             window.alert(result.message)
-            authLocalStorage.setToken(result.token)
+            authStorage.setToken(result.token)
             return response.ok
         }
     }

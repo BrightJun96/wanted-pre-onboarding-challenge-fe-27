@@ -3,6 +3,7 @@ import {AUTH_PAGE_ENUM, AUTH_PAGE_TYPE} from "../../../constant/feature/auth/con
 import "../../../constant/css/authForm.css"
 import "../../../css/index.css"
 import {FLEX_COLUMN_CONTAINER_CLASSNAME, FLEX_ROW_CONTAINER_CLASSNAME} from "../../../constant/css/constant.ts";
+import {useNavigate} from "react-router-dom";
 
 export interface AuthFormType {
     email: string;
@@ -18,11 +19,13 @@ function AuthForm({networkRequest,pageType}:{
         password: ""
     })
 
+   const navigate =  useNavigate()
+
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
        const result = await networkRequest(form)
         if(result) {
-            window.location.href = "/todo"
+            navigate("/todo")
         }
 
 

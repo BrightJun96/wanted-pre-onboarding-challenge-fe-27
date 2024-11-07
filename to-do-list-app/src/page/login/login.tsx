@@ -1,8 +1,11 @@
 import AuthForm, {AuthFormType} from "../../components/feature/auth/authForm.tsx";
-import {authLocalStorage} from "../../helper/authStorage.ts";
+import {authStorage} from "../../helper/authStorage.ts";
 import {fetchLogin} from "../../service/auth/api.auth.ts";
 import {AUTH_PAGE_ENUM} from "../../constant/feature/auth/constant.ts";
 
+/**
+ * 로그인 페이지
+         */
 function Login() {
     async function networkLogin(form:AuthFormType) {
         const response  = await fetchLogin(form);
@@ -17,7 +20,7 @@ function Login() {
 
         if(response.ok){
             window.alert(result.message)
-            authLocalStorage.setToken(result.token)
+            authStorage.setToken(result.token)
 
             return response.ok
         }

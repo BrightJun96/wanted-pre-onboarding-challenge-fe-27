@@ -30,5 +30,5 @@ export class AuthStorage {
 }
 
 // 인스턴스
-export const authLocalStorage = new AuthStorage(localStorage);
+export const authStorage = new AuthStorage(localStorage);
 
