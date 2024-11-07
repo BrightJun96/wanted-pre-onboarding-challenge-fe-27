@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import CustomInput from "../../../input/customInput.tsx";
 import CustomButton from "../../../button/customButton.tsx";
 import {
     fetchCreateTodo, fetchDeleteTodo,
     fetchGetTodoById,
-    fetchGetTodos,
     fetchUpdateTodo
 } from "../../../../service/todos/api.todos.ts";
 import {TODO_PAGE_ENUM, TODO_PAGE_TYPE} from "../../../../constant/feature/todo/constant.ts";
 import {useParams} from "react-router-dom";
+import {TodoListNetworkUpdateContext} from "../../../../context/todo/todoContext.ts";
 
 interface TodoFormInterface {
     title: string;
@@ -30,6 +30,7 @@ function TodoDetailsForm({
     })
 
 
+   const networkFetchGetTodos= useContext(TodoListNetworkUpdateContext)
 
     const params = useParams()
 
@@ -42,36 +43,28 @@ function TodoDetailsForm({
     async function networkAddTodo() {
        const response =  await fetchCreateTodo(todoForm)
         if(response.ok){
-            window.alert("할일이 등록되었습니다.")
-            await fetchGetTodos()
-            /**
-             * @TODO 새로고침없이 데이터 갱신
-             */
-            window.location.reload()
-
-        }else{
-            window.alert("할일 등록에 실패했습니다.")
+            // 할일 목록 갱신
+            await networkFetchGetTodos()
         }
     }
     // 할일 수정 네트워크 요청
     async function networkUpdateTodo(detailsId: string) {
         const response = await fetchUpdateTodo(detailsId, todoForm)
         if (response.ok) {
-            window.alert("할일이 수정되었습니다.")
-            await fetchGetTodos()
-            /**
-             * @TODO 새로고침없이 데이터 갱신
-             */
-            window.location.reload()
-        } else {
-            window.alert("할일 수정에 실패했습니다.")
+            // 할일 목록 갱신
+            await networkFetchGetTodos()
+
         }
     }
 
     // 할일 삭제 네트워크 요청
     async function networkDeleteTodo(detailsId: string|undefined) {
         if(detailsId) {
-            await fetchDeleteTodo(detailsId)
+            const response = await fetchDeleteTodo(detailsId)
+            if(response.ok) {
+                // 할일 목록 갱신
+                await networkFetchGetTodos()
+            }
         }
         else{
             window.alert("상세 ID가 없습니다.")
