@@ -103,21 +103,18 @@ function TodoDetailsForm({
     // 버튼 비활성화 조건
     const ButtonDisabledCondition = todoForm.title === "" || todoForm.content === "";
     // 버튼 라벨
-    const ButtonLabel = IsDetailsPage? "수정":"등록"
+    const ButtonLabel = pageType===IsDetailsPage? "수정":"등록"
 
     useEffect(() => {
         async function networkFetchGetTodo(detailsId: string) {
-            const response = await fetchGetTodoById(detailsId)
+            const data = await fetchGetTodoById(detailsId)
 
-            if(response.ok){
-                const data = await response.json()
+
                 setTodoForm({
                     title: data.data.title,
                     content: data.data.content
                 })
-            }else{
-                window.alert("할일 정보를 불러오는데 실패했습니다.")
-            }
+
         }
 
         if((pageType===IsDetailsPage)&&params.id){

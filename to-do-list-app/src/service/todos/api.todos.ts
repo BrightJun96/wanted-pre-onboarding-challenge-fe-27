@@ -15,13 +15,19 @@ export async function fetchGetTodos(){
 
 // 할일 단일 조회
 export async function fetchGetTodoById(id:string){
-    return networkInstance(`${TODOS}/${id}`, {
+    const response = await networkInstance(`${TODOS}/${id}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
         auth: true,
     })
+
+    if(response.ok){
+        return await response.json()
+    }else{
+        window.alert("할일을 불러오는데 실패했습니다.")
+    }
 }
 
 // 할일 추가
@@ -60,11 +66,9 @@ export async function fetchDeleteTodo(id:string){
 
     if(response.ok){
         window.alert("할일이 삭제되었습니다.")
+        window.location.href = "/todo"
         await fetchGetTodos()
-        /**
-         * @TODO 새로고침없이 데이터 갱신
-         */
-        window.location.reload()
+
     }else{
         window.alert("할일 삭제에 실패했습니다.")
     }

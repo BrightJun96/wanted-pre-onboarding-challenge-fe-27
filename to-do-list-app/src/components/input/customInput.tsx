@@ -1,4 +1,4 @@
-import React, {HTMLInputTypeAttribute} from 'react';
+import  {HTMLInputTypeAttribute} from 'react';
 import "../../css/index.css"
 
 interface CustomInputProps {
