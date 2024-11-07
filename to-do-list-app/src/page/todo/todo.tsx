@@ -3,23 +3,15 @@ import TodoList from "../../components/feature/todo/todoList/todoList.tsx";
 import "../../css/index.css"
 import "../../css/todo/todo.css"
 import {FLEX_ROW_CONTAINER_CLASSNAME} from "../../constant/css/constant.ts";
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet,} from "react-router-dom";
 import {TodoListNetworkUpdateContext} from "../../context/todo/todoContext.ts";
-import {fetchGetTodos} from "../../service/todos/api.todos.ts";
-import {useState} from "react";
-import {TodoListItemResponse} from "../../service/todos/types.ts";
+
 function Todo() {
 
-    const [todoList, setTodoList] = useState<TodoListItemResponse[]>([]);
-    const navigate = useNavigate()
+
 
     async function networkFetchGetTodos() {
-        const data = await fetchGetTodos();
 
-        setTodoList(data.data)
-        if(data.data.length>0) {
-            navigate(`/todo/${data.data[0].id}`)
-        }
 
     }
 
@@ -30,9 +22,6 @@ function Todo() {
         >
             {/*할일 목록*/}
             <TodoList
-                todoList={todoList}
-                networkFetchGetTodos={networkFetchGetTodos}
-
             />
             <Outlet/>
         </div>
