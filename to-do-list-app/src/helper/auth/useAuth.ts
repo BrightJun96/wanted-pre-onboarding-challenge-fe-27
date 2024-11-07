@@ -11,12 +11,10 @@ function useAuth() {
    const authPage = loginPage || signupPage
 
 
-   console.log("token : ",authStorage.getToken())
 
 
    // 로그인 페이지나 회원가입 페이지에 접근했을 때 토큰이 있으면 todo 페이지로 이동
    if(authStorage.getToken()&&authPage){
-         // navigate("/todo")
       window.location.href = "/todo"
 
 

@@ -13,21 +13,18 @@ function TodoList({
 
 
     useEffect(() => {
-
-
-
         networkFetchGetTodos();
     }, []);
 
 
     return (
         <div className={"todo-list-container"}>
+            {/*할일 추가 버튼*/}
             <TodoAddButton/>
+            {/*할일 목록*/}
             {todoList.map((todoItem) =>
                 <TodoItem key={todoItem.id} todoItem={todoItem}
             />)}
-
-
         </div>
     );
 }
