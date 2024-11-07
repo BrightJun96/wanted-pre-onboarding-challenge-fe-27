@@ -1,4 +1,3 @@
-
 import networkInstance from "../network.instance.ts";
 import {TODOS} from "../domainPath.ts";
 import {AddTodoRequest, EditTodoRequest} from "./types.ts";
@@ -15,7 +14,7 @@ export async function fetchGetTodos(){
 }
 
 // 할일 단일 조회
-export async function fetchGetTodoById(id:number){
+export async function fetchGetTodoById(id:string){
     return networkInstance(`${TODOS}/${id}`, {
         method: "GET",
         headers: {
@@ -38,7 +37,7 @@ export async function fetchCreateTodo(addTodoRequest:AddTodoRequest){
 }
 
 // 할일 수정
-export async function fetchUpdateTodo(id:number,editTodoRequest:EditTodoRequest){
+export async function fetchUpdateTodo(id:string,editTodoRequest:EditTodoRequest){
     return networkInstance(`${TODOS}/${id}`, {
         method: "PUT",
         headers: {
@@ -50,12 +49,23 @@ export async function fetchUpdateTodo(id:number,editTodoRequest:EditTodoRequest)
 }
 
 // 할일 삭제
-export async function fetchDeleteTodo(id:number){
-    return networkInstance(`${TODOS}/${id}`, {
+export async function fetchDeleteTodo(id:string){
+    const response = await networkInstance(`${TODOS}/${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
         auth: true,
     })
+
+    if(response.ok){
+        window.alert("할일이 삭제되었습니다.")
+        await fetchGetTodos()
+        /**
+         * @TODO 새로고침없이 데이터 갱신
+         */
+        window.location.reload()
+    }else{
+        window.alert("할일 삭제에 실패했습니다.")
+    }
 }

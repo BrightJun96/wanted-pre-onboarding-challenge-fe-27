@@ -17,22 +17,33 @@ border-radius: 12px;
 
 .todo-item-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   gap: 10px;
   padding: 10px;
   border: 1px solid lightgray;
   border-radius: 5px;
+    height: 150px;
+    cursor: pointer;
+    &:hover {
+      background-color: lightgray;
+    }
 }
 
 .todo-details-container {
+    padding: 10px;
   display: flex;
   flex-direction: column;
   width: 400px;
   height: 250px;
   border: 1px solid lightgray;
     border-radius: 12px;
+}
+
+.todo-details-form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .todo-add-button{

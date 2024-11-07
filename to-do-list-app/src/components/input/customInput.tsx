@@ -21,6 +21,7 @@ function CustomInput({
         >
             {label}
             <input
+                className={"custom-input"}
                 type={inputType}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}

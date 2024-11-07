@@ -1,8 +1,12 @@
 import React from 'react';
+import TodoDetailsForm from "../../../components/feature/todo/todoDetails/todoDetailsForm.tsx";
+import {TODO_PAGE_ENUM} from "../../../constant/feature/todo/constant.ts";
 
-function TodoRegister(props) {
+function TodoRegister() {
     return (
-        <div className={"todo-register-container"}></div>
+        <TodoDetailsForm
+        pageType={TODO_PAGE_ENUM.REGISTER}
+        />
     );
 }
 

@@ -7,9 +7,7 @@ import {FLEX_ROW_CONTAINER_CLASSNAME} from "../../constant/css/constant.ts";
 import {Outlet} from "react-router-dom";
 function Todo() {
 
-    useEffect(() => {
-        fetchGetTodos();
-    }, []);
+
     return (
         <div
         className={`${FLEX_ROW_CONTAINER_CLASSNAME} todo-page-container`}
