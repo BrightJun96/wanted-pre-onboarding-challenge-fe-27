@@ -1,5 +1,5 @@
 import {CustomRequestInit} from "./network.types.ts";
-import {authStorage} from "../helper/authStorage.ts";
+import {authStorage} from "../helper/auth/authStorage.ts";
 
 export const API_URL = "http://localhost:8080";
 

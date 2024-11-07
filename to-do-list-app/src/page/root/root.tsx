@@ -1,4 +1,4 @@
-import useAuth from "../../helper/useAuth.ts";
+import useAuth from "../../helper/auth/useAuth.ts";
 import Header from "../../layout/header/header.tsx";
 import {Outlet} from "react-router-dom";
 

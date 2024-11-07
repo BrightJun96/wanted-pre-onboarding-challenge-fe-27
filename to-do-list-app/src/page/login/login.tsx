@@ -1,5 +1,5 @@
 import AuthForm, {AuthFormType} from "../../components/feature/auth/authForm.tsx";
-import {authStorage} from "../../helper/authStorage.ts";
+import {authStorage} from "../../helper/auth/authStorage.ts";
 import {fetchLogin} from "../../service/auth/api.auth.ts";
 import {AUTH_PAGE_ENUM} from "../../constant/feature/auth/constant.ts";
 

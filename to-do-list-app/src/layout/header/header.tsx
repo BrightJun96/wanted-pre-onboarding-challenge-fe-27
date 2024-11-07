@@ -1,6 +1,6 @@
 import "../../css/header/header.css"
 import AuthButton from "./authButton.tsx";
-import {authStorage} from "../../helper/authStorage.ts";
+import {authStorage} from "../../helper/auth/authStorage.ts";
 import LogoutButton from "./logoutButton.tsx";
 
 function Header() {

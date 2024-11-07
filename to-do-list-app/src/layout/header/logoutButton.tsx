@@ -1,4 +1,4 @@
-import {authStorage} from "../../helper/authStorage.ts";
+import {authStorage} from "../../helper/auth/authStorage.ts";
 
 function LogoutButton() {
 

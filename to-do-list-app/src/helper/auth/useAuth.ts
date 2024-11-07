@@ -1,8 +1,7 @@
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {authStorage} from "./authStorage.ts";
 
 function useAuth() {
-   const navigate = useNavigate()
    const location = useLocation()
 
    // 페이지
