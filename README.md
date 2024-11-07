@@ -39,23 +39,31 @@ https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api
 <img width="404" alt="image" src="https://github.com/user-attachments/assets/ecab6a50-1c68-4814-a25b-32b0244a0108">
 
 - 페이지 관련 디렉터리
+  
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/42d5343d-deaf-4906-a2ec-c451e01288fc">
 
 - API 통신 관련 디렉터리
+  
   <img width="398" alt="image" src="https://github.com/user-attachments/assets/917bbb19-2f1f-498f-979d-0cc1947c49e9">
 
 - UI 관련 디렉터리
   공통 컴포넌트 및 각 페이지별 컴포넌트(feature 디렉터리로 관리)를 관리합니다.
+
   <img width="251" alt="image" src="https://github.com/user-attachments/assets/98d5642c-5ed2-48e1-8232-a8f227cba15e">
 - 상수 관련 디렉터리
+  
   <img width="262" alt="image" src="https://github.com/user-attachments/assets/80d10f39-6076-4f4d-afb5-37f0e6b9ad94">
 - css 파일 관련 디렉터리
+  
   <img width="271" alt="image" src="https://github.com/user-attachments/assets/f016aede-8c5f-48c5-ab14-819559df22c8">
 - helper 함수 관련 디렉터리
+  
   <img width="360" alt="image" src="https://github.com/user-attachments/assets/7805407b-169d-4b0f-9e6b-40daf6f75533">
 - layout 관련 디렉터리
+  
   <img width="362" alt="image" src="https://github.com/user-attachments/assets/5860c945-f33a-4ccf-a13b-fbb7f519c79a">
 - routing 관련 디렉터리
+  
   <img width="344" alt="image" src="https://github.com/user-attachments/assets/f3febc6d-4bab-4545-9b48-5c66354d2883">
 
 
