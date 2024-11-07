@@ -4,6 +4,7 @@ import CustomButton from "../../../button/customButton.tsx";
 import {TODO_PAGE_ENUM, TODO_PAGE_TYPE} from "../../../../constant/feature/todo/constant.ts";
 import {useParams} from "react-router-dom";
 import useTodoNetwork from "../../../../helper/todo/useTodoNetwork.ts";
+import {useQueryTodoDetails} from "../../../../service/todos/query.todos.ts";
 
 export interface TodoFormInterface {
     title: string;
@@ -26,14 +27,15 @@ function TodoDetailsForm({
 
 
 const {
-    networkDeleteTodo,
-    networkUpdateTodo,
-    networkAddTodo,
-    networkFetchGetTodo
-} =useTodoNetwork(todoForm,setTodoForm)
+    addToDo:networkAddTodo,
+    updateToDo:networkUpdateTodo,
+    deleteToDo:networkDeleteTodo
+} =useTodoNetwork()
 
 
     const params = useParams()
+    const {data:todoDetails}=useQueryTodoDetails(params.id??"")
+
 
     const IsDetailsPage = pageType === TODO_PAGE_ENUM.UPDATE
 
@@ -53,9 +55,9 @@ const {
         event.preventDefault();
         // 등록, 수정 분기 처리
         if(pageType === TODO_PAGE_ENUM.UPDATE && params.id){
-            await networkUpdateTodo(params.id)
+             networkUpdateTodo({id:params.id,editTodoRequest:todoForm})
         }else{
-            await networkAddTodo();
+             networkAddTodo(todoForm);
         }
 
     }
@@ -68,11 +70,14 @@ const {
     useEffect(() => {
 
 
-        if((IsDetailsPage)&&params.id){
-            networkFetchGetTodo(params.id)
+        if((IsDetailsPage)&&params.id&&todoDetails){
+            setTodoForm({
+                title: todoDetails.title,
+                content: todoDetails.content
+            })
 
         }
-    }, [params.id]);
+    }, [params.id,todoDetails]);
 
     return (
         <div className={"todo-details-container"}>
@@ -100,7 +105,11 @@ const {
                 {/*삭제(상세 페이지의 경우만)*/}
                 {IsDetailsPage&&<CustomButton
                     label={"삭제"}
-                    onClick={() => networkDeleteTodo(params.id)}
+                    onClick={() => {
+                        if (params.id) {
+                            networkDeleteTodo(params.id)
+                        }
+                    }}
                 />}
             </form>
         </div>

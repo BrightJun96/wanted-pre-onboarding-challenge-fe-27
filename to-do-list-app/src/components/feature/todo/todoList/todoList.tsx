@@ -1,20 +1,12 @@
 import TodoItem from "./todoItem.tsx";
 import TodoAddButton from "./todoAddButton.tsx";
-import {useEffect} from "react";
-import {TodoListItemResponse} from "../../../../service/todos/types.ts";
+import {useQueryTodos} from "../../../../service/todos/query.todos.ts";
 
-function TodoList({
-    todoList,
-    networkFetchGetTodos
-                  }:{
-    todoList:TodoListItemResponse[],
-    networkFetchGetTodos:()=>void
-}) {
+function TodoList() {
+
+    const {data:todoList} =useQueryTodos()
 
 
-    useEffect(() => {
-        networkFetchGetTodos();
-    }, []);
 
 
     return (
@@ -22,7 +14,7 @@ function TodoList({
             {/*할일 추가 버튼*/}
             <TodoAddButton/>
             {/*할일 목록*/}
-            {todoList.map((todoItem) =>
+            {todoList&&todoList.map((todoItem) =>
                 <TodoItem key={todoItem.id} todoItem={todoItem}
             />)}
         </div>
