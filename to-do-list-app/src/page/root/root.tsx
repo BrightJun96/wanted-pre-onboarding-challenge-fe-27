@@ -4,7 +4,7 @@ import {Outlet} from "react-router-dom";
 
 function Root() {
     // 인증 처리
-    useAuth()
+    // useAuth()
 
     return (
         <div>

@@ -15,6 +15,15 @@ interface TodoDetailsFormProps {
     pageType:TODO_PAGE_TYPE
 }
 
+/**
+ * 에러,로딩시 처리 필요
+ * 페이지 로딩시,데이터 호출 > 현재는 페이지를 다 불러오고 데이더 호출 이또한 react-router-dom loader활용
+ * 에러 났을 때도 router에서 해결가능
+ * defer??
+ * zod 추천
+ * @param pageType
+ * @constructor
+ */
 function TodoDetailsForm({
                                 pageType
                          }:TodoDetailsFormProps) {

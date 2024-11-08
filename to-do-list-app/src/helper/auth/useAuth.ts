@@ -1,6 +1,10 @@
 import {useLocation} from "react-router-dom";
 import {authStorage} from "./authStorage.ts";
 
+/**
+ * @todo protected route에 진입한뒤, redirect를 해주는데 이를 토큰확인후,해당 protected router에 진입못하도록 막기
+ * react-router-dom > loader를 활용해보자.
+ */
 function useAuth() {
    const location = useLocation()
 
