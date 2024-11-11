@@ -21,6 +21,7 @@ function Filter() {
     return (
         <>
             <CustomSelect
+                label={"우선순위"}
                 options={PriorityOptions}
                 value={priorityFilter}
                 onChange={handlePriorityChange }/>
