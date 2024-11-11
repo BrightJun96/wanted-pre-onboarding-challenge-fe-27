@@ -21,7 +21,7 @@ function CustomTable({
                          handleSortChange
                      }:CustomTableProps) {
 
-    const [sortColumns, setSortColumns] = useState<readonly SortColumn[]>([]);
+    const [sortColumns, setSortColumns] = useState<SortColumn[]>([]);
 
     const onSortColumnsChange = useCallback((sortColumns: SortColumn[]) => {
         if (handleSortChange) {
