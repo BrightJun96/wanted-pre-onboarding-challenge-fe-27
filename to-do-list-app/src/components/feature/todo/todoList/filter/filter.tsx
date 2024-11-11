@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import CustomSelect from "../select/customSelect.tsx";
+import CustomSelect from "../../../../select/customSelect.tsx";
 
 function Filter() {
 

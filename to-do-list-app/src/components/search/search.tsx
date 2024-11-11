@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 import CustomButton from "../button/customButton.tsx";
-import filter from "../filter/filter.tsx";
+import filter from "../feature/todo/todoList/filter/filter.tsx";
 import CustomInput from "../input/customInput.tsx";
 
 // 검색 컴포넌트
