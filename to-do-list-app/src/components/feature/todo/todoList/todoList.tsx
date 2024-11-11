@@ -13,7 +13,6 @@ function TodoList() {
     const {data:todoList} =useQueryTodos()
     const [_,setSearchParams] = useSearchParams()
 
-
     const columns:TableColumn[] = [
         { key: 'title', name: '제목' },
         { key: 'content', name: '내용' },
@@ -21,9 +20,6 @@ function TodoList() {
         { key: 'createdAt', name: '생성일',sortable:true },
         { key: 'updatedAt', name: '수정일',sortable:true }
     ]
-
-
-
 
     const rows = todoList?todoList.map((todoItem) => ({
         id: todoItem.id,
