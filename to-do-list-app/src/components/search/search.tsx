@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 import CustomButton from "../button/customButton.tsx";
-import filter from "../feature/todo/todoList/filter/filter.tsx";
 import CustomInput from "../input/customInput.tsx";
 
 // 검색 컴포넌트
@@ -13,7 +12,9 @@ function Search() {
     // 검색
     async function handleSearch(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        setSearchParams(new URLSearchParams(filter as unknown as Record<string, string>))    }
+        setSearchParams({
+            keyword
+        })    }
 
     // 검색 초기화
     async function handleReset() {
