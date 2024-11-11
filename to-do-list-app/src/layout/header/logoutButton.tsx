@@ -1,3 +1,4 @@
+import CustomButton from "../../components/button/customButton.tsx";
 import {authStorage} from "../../helper/auth/authStorage.ts";
 
 function LogoutButton() {
@@ -7,11 +8,10 @@ function LogoutButton() {
         window.location.href = "/auth/login"
     }
     return (
-        <button
-        onClick={handleLogout}
-        >
-            로그아웃
-        </button>
+        <CustomButton
+            label={"로그아웃"}
+            onClick={handleLogout}
+       />
     );
 }
 

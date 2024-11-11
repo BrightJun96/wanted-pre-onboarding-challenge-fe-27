@@ -1,12 +1,27 @@
-import {fetchCreateTodo, fetchDeleteTodo, fetchGetTodoById, fetchGetTodos, fetchUpdateTodo} from "./api.todos.ts";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {EditTodoRequest, TodoListItemResponse} from "./types.ts";
+import {useSearchParams} from "react-router-dom";
+import {fetchCreateTodo, fetchDeleteTodo, fetchGetTodoById, fetchGetTodos, fetchUpdateTodo} from "./api.todos.ts";
+import {EditTodoRequest, TodoListItemResponse, TodoListRequest} from "./types.ts";
 
 // 할일 목록
 export function useQueryTodos() {
+
+    let [searchParams] = useSearchParams();
+    let order = searchParams.get("order")??undefined
+    let priorityFilter = searchParams.get("priorityFilter")??undefined
+    let sort = searchParams.get("sort")??undefined;
+    let keyword = searchParams.get("keyword")??undefined;
+
+    const todoListRequest:TodoListRequest = {
+        priorityFilter,
+        sort,
+        keyword,
+        order,
+    }
+
     return  useQuery<TodoListItemResponse[]>({
-        queryKey: ["todos"],
-        queryFn: fetchGetTodos,
+        queryKey: ["todos",{...todoListRequest}],
+        queryFn:() =>  fetchGetTodos(todoListRequest),
     })
 
 }
