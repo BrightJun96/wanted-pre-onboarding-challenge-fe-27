@@ -1,6 +1,8 @@
 import {SortColumn} from "react-data-grid";
 import {useSearchParams} from "react-router-dom";
+import {formatDate} from "../../../../helper/date.ts";
 import {useQueryTodos} from "../../../../service/todos/query.todos.ts";
+import {Direction, PriorityToKOEnum} from "../../../../type/feature/todo/types.ts";
 import Filter from "../../../filter/filter.tsx";
 import Search from "../../../search/search.tsx";
 import CustomTable, {TableColumn} from "../../../table/customTable.tsx";
@@ -21,25 +23,22 @@ function TodoList() {
     ]
 
 
+
+
     const rows = todoList?todoList.map((todoItem) => ({
         id: todoItem.id,
         title: todoItem.title,
         content: todoItem.content,
-        priority: todoItem.priority,
-        createdAt: todoItem.createdAt,
-        updatedAt: todoItem.updatedAt
+        priority: PriorityToKOEnum[todoItem.priority],
+        createdAt: formatDate(new Date(todoItem.createdAt)),
+        updatedAt: formatDate(new Date(todoItem.createdAt))
     })):[]
 
-    enum Direction{
-        ASC="asc",
-        DESC="desc"
-    }
 
     function handleSortChange(sortColumns:SortColumn[]) {
         if(sortColumns.length===0) return
         const { columnKey, direction } = sortColumns[0];
-        console.log("columnKey",columnKey)
-        console.log("direction",direction)
+
         setSearchParams({sort:columnKey,order:Direction[direction]})
 
     }

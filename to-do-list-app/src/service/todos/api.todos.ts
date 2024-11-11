@@ -14,6 +14,7 @@ export async function fetchGetTodos(todoListRequest:TodoListRequest){
 
         }).filter(([_, v]) => v !== undefined)
     )as Record<string, string>;
+
     const response =  await networkInstance(`${TODOS}`, {
         method: "GET",
         headers: {

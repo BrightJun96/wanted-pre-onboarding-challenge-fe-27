@@ -23,8 +23,8 @@ export interface TodoListItemResponse {
     title: string; // 할일 제목
     content: string; // 할일 내용
     priority: PriorityType; // 할일 중요도
-    createdAt?: string; // 할일 생성일
-    updatedAt?: string; // 할일 수정일
+    createdAt: string; // 할일 생성일
+    updatedAt: string; // 할일 수정일
 
 }
 
