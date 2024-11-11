@@ -7,10 +7,11 @@ export async function fetchGetTodos(todoListRequest:TodoListRequest){
 
     const queryString = Object.fromEntries(
         Object.entries({
-            priority: todoListRequest.priority,
+            priorityFilter: todoListRequest.priorityFilter,
             sort: todoListRequest.sort,
-            keyword: todoListRequest.keyword,
             order: todoListRequest.order,
+            keyword: todoListRequest.keyword,
+
         }).filter(([_, v]) => v !== undefined)
     )as Record<string, string>;
     const response =  await networkInstance(`${TODOS}`, {

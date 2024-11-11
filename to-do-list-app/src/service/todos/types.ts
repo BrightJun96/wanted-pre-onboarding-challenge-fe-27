@@ -33,7 +33,7 @@ export type TodoListRequestOrder = "createdAt" | "updatedAt" | "priority";
 // 할일 목록 요청 타입
 export interface TodoListRequest {
     priorityFilter?:string//PriorityType; // 중요도
-    sort?:  string //"asc" | "desc"; // 정렬
+    sort?:  string //TodoListRequestOrder // 정렬
     keyword?: string; // 검색어
-    order?: string //TodoListRequestOrder // 정렬 기준
+    order?: string //"asc" | "desc" // 정렬 기준
 }

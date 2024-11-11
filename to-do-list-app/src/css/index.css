@@ -40,23 +40,32 @@
 
 /*인풋*/
 .input-container{
-    width: 100%;
+        flex:1;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .custom-input{
-    width: 300px;
+    width: auto; /* 버튼은 고정된 넓이만 차지 */
     height: 30px;
     border-radius: 5px;
     border: 1px solid lightgray;
     padding: 5px;
 }
 
-/*라디오*/
-.radio-container{
+/*검색 컨테이너*/
+.search-container{
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
 }
+
+.search-filter{
+
+}
+
+
