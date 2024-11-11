@@ -1,14 +1,24 @@
-import networkInstance from "../network.instance.ts";
 import {TODOS} from "../domainPath.ts";
-import {AddTodoRequest, EditTodoRequest} from "./types.ts";
+import networkInstance from "../network.instance.ts";
+import {AddTodoRequest, EditTodoRequest, TodoListRequest} from "./types.ts";
 
 // 할일 목록 조회
-export async function fetchGetTodos(){
+export async function fetchGetTodos(todoListRequest:TodoListRequest){
+
+    const queryString = Object.fromEntries(
+        Object.entries({
+            priority: todoListRequest.priority,
+            sort: todoListRequest.sort,
+            keyword: todoListRequest.keyword,
+            order: todoListRequest.order,
+        }).filter(([_, v]) => v !== undefined)
+    )as Record<string, string>;
     const response =  await networkInstance(`${TODOS}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
+        queryString,
         auth: true,
     })
 

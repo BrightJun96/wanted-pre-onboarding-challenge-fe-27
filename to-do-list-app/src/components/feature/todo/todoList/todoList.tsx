@@ -1,6 +1,6 @@
-import TodoItem from "./todoItem.tsx";
-import TodoAddButton from "./todoAddButton.tsx";
 import {useQueryTodos} from "../../../../service/todos/query.todos.ts";
+import TodoAddButton from "./todoAddButton.tsx";
+import TodoItem from "./todoItem.tsx";
 
 function TodoList() {
 
