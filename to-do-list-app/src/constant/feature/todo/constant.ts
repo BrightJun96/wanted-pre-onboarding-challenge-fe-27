@@ -1,6 +1,20 @@
-export type TODO_PAGE_TYPE = TODO_PAGE_ENUM.REGISTER | TODO_PAGE_ENUM.UPDATE;
+import {RadioOption} from "../../../components/radio/customRadio.tsx";
 
-export enum TODO_PAGE_ENUM{
-    REGISTER = "REGISTER",
-    UPDATE = "UPDATE"
-}
+
+// 우선순위 옵션
+export const PriorityOptions:RadioOption[] = [
+    {
+        label:"높음",
+        value:"urgent"
+    },
+    {
+        label:"중간",
+        value:"normal"
+    },
+    {
+        label:"낮음",
+        value:"low"
+    }
+]
+
+

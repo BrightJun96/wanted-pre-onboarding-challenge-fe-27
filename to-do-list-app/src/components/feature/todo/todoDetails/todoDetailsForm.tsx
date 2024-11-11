@@ -1,14 +1,17 @@
-import React, { useEffect, useState} from 'react';
-import CustomInput from "../../../input/customInput.tsx";
-import CustomButton from "../../../button/customButton.tsx";
-import {TODO_PAGE_ENUM, TODO_PAGE_TYPE} from "../../../../constant/feature/todo/constant.ts";
+import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
+import {PriorityOptions,} from "../../../../constant/feature/todo/constant.ts";
 import useTodoNetwork from "../../../../helper/todo/useTodoNetwork.ts";
 import {useQueryTodoDetails} from "../../../../service/todos/query.todos.ts";
+import {PriorityType, TODO_PAGE_ENUM, TODO_PAGE_TYPE} from "../../../../type/feature/todo/types.ts";
+import CustomButton from "../../../button/customButton.tsx";
+import CustomInput from "../../../input/customInput.tsx";
+import CustomRadio from "../../../radio/customRadio.tsx";
 
 export interface TodoFormInterface {
     title: string;
     content: string;
+    priority: PriorityType;
 }
 
 interface TodoDetailsFormProps {
@@ -31,7 +34,8 @@ function TodoDetailsForm({
     // 할일 등록 폼
     const [todoForm, setTodoForm] = useState<TodoFormInterface>({
         title: "",
-        content: ""
+        content: "",
+        priority: "urgent"
     })
 
 
@@ -82,7 +86,8 @@ const {
         if((IsDetailsPage)&&params.id&&todoDetails){
             setTodoForm({
                 title: todoDetails.title,
-                content: todoDetails.content
+                content: todoDetails.content,
+                priority: todoDetails.priority
             })
 
         }
@@ -106,6 +111,14 @@ const {
                     value={todoForm.content}
                     onChange={(value) => handleFormChange("content",value)}
                     inputType={"text"}/>
+                {/*우선순위*/}
+                <CustomRadio
+                    value={todoForm.priority}
+                    onChange={(value) => handleFormChange("priority",value)}
+                    label={"우선순위"}
+                    options={PriorityOptions}
+                />
+
                 {/*등록,수정*/}
                 <CustomButton
                     type={"submit"}

@@ -1,7 +1,10 @@
 // 공통 TODO 요청 타입 정의(등록,수정)
+import {PriorityType} from "../../type/feature/todo/types.ts";
+
 export interface CommonTodoRequest{
     title: string; // 할일 제목
     content: string; // 할일 내용
+    priority: PriorityType; // 할일 중요도
 }
 
 // 할일 등록 요청 타입

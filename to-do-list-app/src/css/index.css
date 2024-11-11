@@ -53,3 +53,10 @@
     border: 1px solid lightgray;
     padding: 5px;
 }
+
+/*라디오*/
+.radio-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
