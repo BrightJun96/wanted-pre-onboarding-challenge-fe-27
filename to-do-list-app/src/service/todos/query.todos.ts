@@ -1,8 +1,15 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useSearchParams} from "react-router-dom";
-import {fetchCreateTodo, fetchDeleteTodo, fetchGetTodoById, fetchGetTodos, fetchUpdateTodo} from "./api.todos.ts";
+import {todoApiService} from "./api.todos.ts";
 import {EditTodoRequest, TodoListItemResponse, TodoListRequest} from "./types.ts";
 
+const {
+    getTodos : fetchGetTodos,
+    getTodoById:fetchGetTodoById ,
+    createTodo:fetchCreateTodo,
+    updateTodo:fetchUpdateTodo,
+    deleteTodo:fetchDeleteTodo
+} = todoApiService
 // 할일 목록
 export function useQueryTodos() {
 
