@@ -5,8 +5,6 @@ import {AddTodoRequest, EditTodoRequest, TodoListRequest} from "./types.ts";
 
 export class TodoApiService implements TodoService {
 
-    constructor() {
-    }
 
     // 할일 목록 조회
     async getTodos(request: TodoListRequest): Promise<any> {
