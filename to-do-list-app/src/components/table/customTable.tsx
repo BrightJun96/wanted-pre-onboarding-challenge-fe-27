@@ -1,7 +1,7 @@
 import 'react-data-grid/lib/styles.css';
-import {useCallback, useState} from "react";
 
 import DataGrid, {SortColumn} from 'react-data-grid';
+import useSortColumn from "./hook/useSortColumn.ts";
 
 export interface TableColumn{
     key: string;
@@ -21,14 +21,8 @@ function CustomTable({
                          handleSortChange
                      }:CustomTableProps) {
 
-    const [sortColumns, setSortColumns] = useState<SortColumn[]>([]);
 
-    const onSortColumnsChange = useCallback((sortColumns: SortColumn[]) => {
-        if (handleSortChange) {
-            handleSortChange(sortColumns);
-        }
-        setSortColumns(sortColumns.slice(-1));
-    }, []);
+ const {sortColumns,onSortColumnsChange}  = useSortColumn(handleSortChange)
 
     return (
         <DataGrid

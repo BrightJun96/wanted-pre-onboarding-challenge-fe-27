@@ -8,9 +8,17 @@ import CustomTable, {TableColumn} from "../../../table/customTable.tsx";
 // 할일 목록 테이블
 function TodoListTable() {
 
+
     const {data:todoList} =useQueryTodos()
     const [_,setSearchParams] = useSearchParams()
 
+
+
+
+    /**
+     * @todo 추후에 다른 테이블 UI에 대한 다른 컬럼이 만들어질 수 있으니 테이블 컬럼을 만드는 함수 만들기
+     *
+     */
     const columns:TableColumn[] = [
         { key: 'title', name: '제목' },
         { key: 'content', name: '내용' },
@@ -19,6 +27,9 @@ function TodoListTable() {
         { key: 'updatedAt', name: '수정일',sortable:true }
     ]
 
+    /**
+     * @todo rows를 계산해주는 레이어를 API 호출단계에서 분리해주기
+     */
     const rows = todoList?todoList.map((todoItem) => ({
         id: todoItem.id,
         title: todoItem.title,
@@ -29,8 +40,9 @@ function TodoListTable() {
     })):[]
 
 
+
     function handleSortChange(sortColumns:SortColumn[]) {
-        if(sortColumns.length===0) return
+
         const { columnKey, direction } = sortColumns[0];
 
         setSearchParams({sort:columnKey,order:Direction[direction]})
