@@ -9,7 +9,7 @@ function TodoListTable() {
 
 
     const {data:todoList} =useQueryTodos()
-    const handleSortChange = useSortHandler()
+    const handleSortChange = useSortHandler();
 
 
 
