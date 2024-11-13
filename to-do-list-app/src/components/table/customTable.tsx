@@ -1,7 +1,7 @@
 import 'react-data-grid/lib/styles.css';
 
 import DataGrid, {SortColumn} from 'react-data-grid';
-import useSortColumn from "./hook/useSortColumn.ts";
+import useSortColumn from "./sort/useSortColumn.ts";
 
 export interface TableColumn{
     key: string;

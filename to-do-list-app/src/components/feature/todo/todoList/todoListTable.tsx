@@ -1,16 +1,15 @@
-import {SortColumn} from "react-data-grid";
-import {useSearchParams} from "react-router-dom";
 import {formatDate} from "../../../../helper/date.ts";
 import {useQueryTodos} from "../../../../service/todos/query.todos.ts";
-import {Direction, PriorityToKOEnum} from "../../../../type/feature/todo/types.ts";
+import {PriorityToKOEnum} from "../../../../type/feature/todo/types.ts";
 import CustomTable, {TableColumn} from "../../../table/customTable.tsx";
+import {useSortHandler} from "../../../table/sort/useSortHandler.ts";
 
 // 할일 목록 테이블
 function TodoListTable() {
 
 
     const {data:todoList} =useQueryTodos()
-    const [_,setSearchParams] = useSearchParams()
+    const handleSortChange = useSortHandler()
 
 
 
@@ -41,13 +40,7 @@ function TodoListTable() {
 
 
 
-    function handleSortChange(sortColumns:SortColumn[]) {
 
-        const { columnKey, direction } = sortColumns[0];
-
-        setSearchParams({sort:columnKey,order:Direction[direction]})
-
-    }
     return (
         <CustomTable
             columns={columns}
