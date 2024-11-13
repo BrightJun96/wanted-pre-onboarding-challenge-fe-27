@@ -7,3 +7,4 @@ export interface TodoService {
     updateTodo(id: string, request: EditTodoRequest): Promise<Response>;
     deleteTodo(id: string): Promise<Response>;
 }
+

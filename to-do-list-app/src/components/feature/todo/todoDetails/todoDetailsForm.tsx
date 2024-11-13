@@ -67,7 +67,7 @@ const {
     ) {
         event.preventDefault();
         // 등록, 수정 분기 처리
-        if(pageType === TODO_PAGE_ENUM.UPDATE && params.id){
+        if(IsDetailsPage && params.id){
              networkUpdateTodo({id:params.id,editTodoRequest:todoForm})
         }else{
              networkAddTodo(todoForm);
