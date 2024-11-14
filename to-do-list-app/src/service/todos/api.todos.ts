@@ -9,7 +9,7 @@ export class TodoApiService implements CRUDTodoService {
 
 
     // 할일 목록 조회
-    async getTodos(request: TodoListRequest): Promise<TodoListProcessResponse[]|null> {
+    async getTodos(request: TodoListRequest): Promise<TodoListProcessResponse[]> {
         const queryString = Object.fromEntries(
             Object.entries({
                 priorityFilter: request.priorityFilter,
@@ -33,8 +33,7 @@ export class TodoApiService implements CRUDTodoService {
             const result:IResponse<TodoListItemResponse[]> = await response.json();
             return result.data.map((item) => new TodoListProcessResponse(item));
         } else {
-            window.alert("할일 목록을 불러오는데 실패했습니다.");
-            return null;
+            throw new Error("할일 목록을 불러오는데 실패했습니다."); // 예외를 던짐
         }
     }
 
