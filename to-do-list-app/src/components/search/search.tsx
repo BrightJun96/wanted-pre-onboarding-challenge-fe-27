@@ -9,25 +9,17 @@ interface ISearch {
 }
 
 // 검색 컴포넌트
-// 역할 : 검색어를 입력받아 검색어를 쿼리스트링으로 설정하고, 검색어를 초기화하는 기능을 제공한다.
+// 역할 : 검색에 대한 최소한의 인터페이스만 구현한다. 구체화된 로직의 상위 구현 컴포넌트에서 해결한다.
 function Search({onSearch,onReset,keyword,onKeywordChange}:ISearch) {
 
-    // const [_,setSearchParams] = useSearchParams()
 
     // 검색
     async function handleSearch(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         onSearch(keyword)
-        // setSearchParams({
-        //     keyword
-        // })
     }
 
-    // 검색 초기화
-    async function handleReset() {
-            // setSearchParams({}); // 쿼리스트링을 빈 객체로 설정하여 모든 쿼리스트링 제거
-            // setKeyword(""); // 검색어 초기화
-            }
+
 
     return (
         <form
