@@ -1,7 +1,8 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useSearchParams} from "react-router-dom";
 import {todoApiService} from "./api.todos.ts";
-import {EditTodoRequest, TodoListItemResponse, TodoListRequest} from "./types.ts";
+import {TodoListProcessResponse} from "./response/TodoListProcessResponse.ts";
+import {EditTodoRequest, TodoListRequest} from "./types.ts";
 
 const {
     getTodos : fetchGetTodos,
@@ -26,10 +27,12 @@ export function useQueryTodos() {
         order,
     }
 
-    return  useQuery<TodoListItemResponse[]>({
+    const queryData = useQuery<TodoListProcessResponse[]|null>({
         queryKey: ["todos",{...todoListRequest}],
         queryFn:() =>  fetchGetTodos(todoListRequest),
     })
+
+    return {...queryData,data:queryData.data??[]}
 
 }
 

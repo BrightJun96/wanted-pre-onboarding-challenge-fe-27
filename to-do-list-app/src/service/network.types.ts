@@ -5,5 +5,10 @@ export interface CustomRequestInit extends RequestInit {
     auth?: boolean;
 }
 
+// 응답 타입
+export interface IResponse<T>{
+    data:T;
+}
+
 
 
