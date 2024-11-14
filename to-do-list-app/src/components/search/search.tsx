@@ -1,5 +1,5 @@
-import CustomButton from "../button/customButton.tsx";
-import CustomInput from "../input/customInput.tsx";
+import SearchButtons from "./searchButtons.tsx";
+import SearchInput from "./searchInput.tsx";
 
 interface ISearch {
     onSearch: (keyword: string) => void; // 검색
@@ -10,8 +10,6 @@ interface ISearch {
 
 // 검색 컴포넌트
 // 역할 : 검색어를 입력받아 검색어를 쿼리스트링으로 설정하고, 검색어를 초기화하는 기능을 제공한다.
-// 이 컴포넌트의 OCP 원칙에 잘 따르고 있을까?
-// 이 컴포넌트의 SRP 원칙에 잘 따르고 있을까?
 function Search({onSearch,onReset,keyword,onKeywordChange}:ISearch) {
 
     // const [_,setSearchParams] = useSearchParams()
@@ -41,24 +39,9 @@ function Search({onSearch,onReset,keyword,onKeywordChange}:ISearch) {
             className={"search-container"}
             >
                 {/*검색어 입력*/}
-                <CustomInput
-                    label={""}
-                    value={keyword}
-                    onChange={onKeywordChange}
-                    inputType={"text"}
-                />
-                {/*검색어를 쿼리스트링으로 설정*/}
-                <CustomButton
-                    disabled={keyword === ""}
-                    label={"검색"}
-                    type={"submit"}
-                />
-                {/*초기화*/}
-                <CustomButton
-                    label={"초기화"}
-                    onClick={onReset}
-                    type={"button"}
-                />
+                <SearchInput keyword={keyword} onKeywordChange={onKeywordChange}/>
+                {/*검색,초기화 버튼*/}
+                <SearchButtons onSearch={onSearch} onReset={onReset} keyword={keyword}/>
             </section>
         </form>
     );
