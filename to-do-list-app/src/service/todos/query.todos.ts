@@ -30,7 +30,17 @@ export function useQueryTodos() {
     const queryData = useQuery<TodoListProcessResponse[]|null>({
         queryKey: ["todos",{...todoListRequest}],
         queryFn:() =>  fetchGetTodos(todoListRequest),
+        throwOnError:false
+
+
     })
+
+    // 에러 상태 확인 및 처리
+    if (queryData.error) {
+        console.error("Error fetching todos:", queryData.error.message);
+        alert("할일 목록을 불러오는데 실패했습니다.");
+        return
+    }
 
     return {...queryData,data:queryData.data??[]}
 

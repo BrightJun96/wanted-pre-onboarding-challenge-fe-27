@@ -1,3 +1,4 @@
+import {filterUndefinedValues} from "../../helper/objectUtils.ts";
 import {TODOS} from "../domainPath.ts";
 import networkInstance from "../network.instance.ts";
 import {IResponse} from "../network.types.ts";
@@ -10,14 +11,8 @@ export class TodoApiService implements CRUDTodoService {
 
     // 할일 목록 조회
     async getTodos(request: TodoListRequest): Promise<TodoListProcessResponse[]> {
-        const queryString = Object.fromEntries(
-            Object.entries({
-                priorityFilter: request.priorityFilter,
-                sort: request.sort,
-                order: request.order,
-                keyword: request.keyword,
-            }).filter(([_, v]) => v !== undefined)
-        ) as Record<string, string>;
+
+        const queryString = filterUndefinedValues(request);
 
         const response = await networkInstance(`${TODOS}`, {
             method: "GET",
@@ -33,7 +28,7 @@ export class TodoApiService implements CRUDTodoService {
             const result:IResponse<TodoListItemResponse[]> = await response.json();
             return result.data.map((item) => new TodoListProcessResponse(item));
         } else {
-            throw new Error("할일 목록을 불러오는데 실패했습니다."); // 예외를 던짐
+            throw new Error("할일 목록을 불러오는데 실패했습니다.");
         }
     }
 
