@@ -1,6 +1,7 @@
 import {columns} from "../../../../constant/feature/todo/constant.ts";
 import {useQueryTodos} from "../../../../service/todos/query.todos.ts";
 import ErrorMessage from "../../../error/errorMessage.tsx";
+import Loading from "../../../loading/loading.tsx";
 import CustomTable from "../../../table/customTable.tsx";
 import {useSortHandler} from "../../../table/sort/useSortHandler.ts";
 
@@ -11,7 +12,7 @@ function TodoListTable() {
     const handleSortChange = useSortHandler();
 
     if(isLoading){
-        return <p>로딩중...</p>
+        return <Loading/>
     }
      if (isError){
         return <ErrorMessage/>
