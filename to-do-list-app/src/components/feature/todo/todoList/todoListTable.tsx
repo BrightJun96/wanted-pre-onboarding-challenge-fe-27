@@ -9,10 +9,12 @@ function TodoListTable() {
 
     const handleSortChange = useSortHandler();
 
+   const {data:todoList=[]} =  useQueryTodos()
 
     return (
-        <Fetcher query={useQueryTodos} dataPropName="rows">
+        <Fetcher query={useQueryTodos} >
           <CustomTable
+                rows={todoList}
                 columns={columns}
                 handleSortChange={handleSortChange}
             />
