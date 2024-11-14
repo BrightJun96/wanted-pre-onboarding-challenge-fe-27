@@ -11,13 +11,13 @@ export interface TableColumn{
 
 interface CustomTableProps {
     columns: TableColumn[];
-    rows: { [key: string]: any }[];
+    rows?: { [key: string]: any }[];
     handleSortChange?: (sortColumns: SortColumn[]) => void;
 }
 
 function CustomTable({
     columns,
-    rows,
+    rows=[],
                          handleSortChange
                      }:CustomTableProps) {
 
