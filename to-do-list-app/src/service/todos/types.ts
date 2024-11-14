@@ -28,6 +28,16 @@ export interface TodoListItemResponse {
 
 }
 
+// 클라이언트 가공 할일 데이터 타입
+export interface ProcessedTodoItem {
+    id: string;
+    title: string;
+    content: string;
+    priority: string; // 우선 순위는 한글로 변환된 문자열
+    createdAt: string; // 포맷팅된 생성일
+    updatedAt: string; // 포맷팅된 수정일
+}
+
 // 할일 목록 요청 타입 순서
 export type TodoListRequestOrder = "createdAt" | "updatedAt" | "priority";
 // 할일 목록 요청 타입
