@@ -1,7 +1,9 @@
 import {TODOS} from "../domainPath.ts";
 import networkInstance from "../network.instance.ts";
+import {IResponse} from "../network.types.ts";
 import {TodoService} from "./interface.todos.ts";
-import {AddTodoRequest, EditTodoRequest, TodoListRequest} from "./types.ts";
+import {TodoListProcessResponse} from "./response/TodoListProcessResponse.ts";
+import {AddTodoRequest, EditTodoRequest, TodoListItemResponse, TodoListRequest} from "./types.ts";
 
 export class TodoApiService implements TodoService {
 
@@ -26,9 +28,10 @@ export class TodoApiService implements TodoService {
             auth: true,
         });
 
+
         if (response.ok) {
-            const result = await response.json();
-            return result.data;
+            const result:IResponse<TodoListItemResponse[]> = await response.json();
+            return result.data.map((item) => new TodoListProcessResponse(item));
         } else {
             window.alert("할일 목록을 불러오는데 실패했습니다.");
             return null;
