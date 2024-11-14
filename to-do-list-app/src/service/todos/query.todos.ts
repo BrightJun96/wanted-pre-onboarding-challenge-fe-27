@@ -1,6 +1,7 @@
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {useSearchParams} from "react-router-dom";
+import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/react-query";
+import useQueryString from "../../helper/useQueryString.ts";
 import {todoApiService} from "./api.todos.ts";
+import {TODOQueryKey} from "./query.key.ts";
 import {TodoListProcessResponse} from "./response/TodoListProcessResponse.ts";
 import {EditTodoRequest, TodoListRequest} from "./types.ts";
 
@@ -12,34 +13,31 @@ const {
     deleteTodo:fetchDeleteTodo
 } = todoApiService
 // 할일 목록
-export function useQueryTodos() {
+export function useQueryTodos() : UseQueryResult<TodoListProcessResponse[], Error>{
 
-    let [searchParams] = useSearchParams();
-    let order = searchParams.get("order")??undefined
-    let priorityFilter = searchParams.get("priorityFilter")??undefined
-    let sort = searchParams.get("sort")??undefined;
-    let keyword = searchParams.get("keyword")??undefined;
+    const {getQueryParams} =useQueryString()
 
-    const todoListRequest:TodoListRequest = {
-        priorityFilter,
-        sort,
-        keyword,
-        order,
-    }
+    const defaultRequestParams: TodoListRequest = {
+        priorityFilter: undefined,
+        sort: undefined,
+        keyword: undefined,
+        order: undefined,
+    };
 
-    const queryData = useQuery<TodoListProcessResponse[]|null>({
-        queryKey: ["todos",{...todoListRequest}],
-        queryFn:() =>  fetchGetTodos(todoListRequest),
+    const todoListRequest = getQueryParams(defaultRequestParams);
+
+    return useQuery<TodoListProcessResponse[], Error>({
+        queryKey: [TODOQueryKey.list, {...todoListRequest}],
+        queryFn: () => fetchGetTodos(todoListRequest),
+        select: (data) => data ?? []
     })
-
-    return {...queryData,data:queryData.data??[]}
 
 }
 
 // 할일 상세 조회
 export function useQueryTodoDetails(detailsId:string) {
     return  useQuery({
-        queryKey: ["todo",detailsId],
+        queryKey: [TODOQueryKey.detail,detailsId],
         queryFn: ()=>fetchGetTodoById(detailsId),
         enabled: !!detailsId
     })
@@ -54,7 +52,7 @@ export function useMutationAddTodo() {
     return useMutation({
         mutationFn: fetchCreateTodo,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] })
+            queryClient.invalidateQueries({ queryKey: [TODOQueryKey.list] })
         },
     })
 }
@@ -69,8 +67,8 @@ export function useMutationUpdateTodo() {
             editTodoRequest:EditTodoRequest
         })=>fetchUpdateTodo(variables.id,variables.editTodoRequest),
         onSuccess: (_,variables) => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] })
-            queryClient.invalidateQueries({ queryKey: ['todo',variables.id] })
+            queryClient.invalidateQueries({ queryKey: [TODOQueryKey.list] })
+            queryClient.invalidateQueries({ queryKey: [TODOQueryKey.detail,variables.id] })
 
         },
     })

@@ -1,23 +1,18 @@
+import {filterUndefinedValues} from "../../helper/objectUtils.ts";
 import {TODOS} from "../domainPath.ts";
 import networkInstance from "../network.instance.ts";
 import {IResponse} from "../network.types.ts";
-import {CreateTodoService, DeleteTodoService, ReadTodoService, UpdateTodoService} from "./interface.todos.ts";
+import {CRUDTodoService} from "./interface.todos.ts";
 import {TodoListProcessResponse} from "./response/TodoListProcessResponse.ts";
 import {AddTodoRequest, EditTodoRequest, TodoListItemResponse, TodoListRequest} from "./types.ts";
 
-export class TodoApiService implements ReadTodoService<TodoListRequest, TodoListItemResponse>,CreateTodoService<AddTodoRequest>,UpdateTodoService<EditTodoRequest>,DeleteTodoService {
+export class TodoApiService implements CRUDTodoService {
 
 
     // 할일 목록 조회
-    async getTodos(request: TodoListRequest): Promise<TodoListProcessResponse[]|null> {
-        const queryString = Object.fromEntries(
-            Object.entries({
-                priorityFilter: request.priorityFilter,
-                sort: request.sort,
-                order: request.order,
-                keyword: request.keyword,
-            }).filter(([_, v]) => v !== undefined)
-        ) as Record<string, string>;
+    async getTodos(request: TodoListRequest): Promise<TodoListProcessResponse[]> {
+
+        const queryString = filterUndefinedValues(request);
 
         const response = await networkInstance(`${TODOS}`, {
             method: "GET",
@@ -33,8 +28,7 @@ export class TodoApiService implements ReadTodoService<TodoListRequest, TodoList
             const result:IResponse<TodoListItemResponse[]> = await response.json();
             return result.data.map((item) => new TodoListProcessResponse(item));
         } else {
-            window.alert("할일 목록을 불러오는데 실패했습니다.");
-            return null;
+            throw new Error("할일 목록을 불러오는데 실패했습니다.");
         }
     }
 
