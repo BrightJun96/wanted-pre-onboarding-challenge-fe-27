@@ -1,6 +1,7 @@
 import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/react-query";
 import useQueryString from "../../helper/useQueryString.ts";
 import {todoApiService} from "./api.todos.ts";
+import {TODOQueryKey} from "./query.key.ts";
 import {TodoListProcessResponse} from "./response/TodoListProcessResponse.ts";
 import {EditTodoRequest, TodoListRequest} from "./types.ts";
 
@@ -23,11 +24,10 @@ export function useQueryTodos() : UseQueryResult<TodoListProcessResponse[], Erro
         order: undefined,
     };
 
-    // 유틸리티 함수를 통해 동적으로 생성된 쿼리 파라미터 객체 생성
     const todoListRequest = getQueryParams(defaultRequestParams);
 
     const queryData = useQuery<TodoListProcessResponse[], Error>({
-        queryKey: ["todos",{...todoListRequest}],
+        queryKey: [TODOQueryKey.list,{...todoListRequest}],
         queryFn:() =>  fetchGetTodos(todoListRequest),
         select:(data) => data??[]
     })
@@ -45,7 +45,7 @@ export function useQueryTodos() : UseQueryResult<TodoListProcessResponse[], Erro
 // 할일 상세 조회
 export function useQueryTodoDetails(detailsId:string) {
     return  useQuery({
-        queryKey: ["todo",detailsId],
+        queryKey: [TODOQueryKey.detail,detailsId],
         queryFn: ()=>fetchGetTodoById(detailsId),
         enabled: !!detailsId
     })
@@ -60,7 +60,7 @@ export function useMutationAddTodo() {
     return useMutation({
         mutationFn: fetchCreateTodo,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] })
+            queryClient.invalidateQueries({ queryKey: [TODOQueryKey.list] })
         },
     })
 }
@@ -75,8 +75,8 @@ export function useMutationUpdateTodo() {
             editTodoRequest:EditTodoRequest
         })=>fetchUpdateTodo(variables.id,variables.editTodoRequest),
         onSuccess: (_,variables) => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] })
-            queryClient.invalidateQueries({ queryKey: ['todo',variables.id] })
+            queryClient.invalidateQueries({ queryKey: [TODOQueryKey.list] })
+            queryClient.invalidateQueries({ queryKey: [TODOQueryKey.detail,variables.id] })
 
         },
     })
