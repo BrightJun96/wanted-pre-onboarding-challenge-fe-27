@@ -1,5 +1,5 @@
 import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/react-query";
-import {useSearchParams} from "react-router-dom";
+import useQueryString from "../../helper/useQueryString.ts";
 import {todoApiService} from "./api.todos.ts";
 import {TodoListProcessResponse} from "./response/TodoListProcessResponse.ts";
 import {EditTodoRequest, TodoListRequest} from "./types.ts";
@@ -14,18 +14,17 @@ const {
 // 할일 목록
 export function useQueryTodos() : UseQueryResult<TodoListProcessResponse[], Error>{
 
-    let [searchParams] = useSearchParams();
-    let order = searchParams.get("order")??undefined
-    let priorityFilter = searchParams.get("priorityFilter")??undefined
-    let sort = searchParams.get("sort")??undefined;
-    let keyword = searchParams.get("keyword")??undefined;
+    const {getQueryParams} =useQueryString()
 
-    const todoListRequest:TodoListRequest = {
-        priorityFilter,
-        sort,
-        keyword,
-        order,
-    }
+    const defaultRequestParams: TodoListRequest = {
+        priorityFilter: undefined,
+        sort: undefined,
+        keyword: undefined,
+        order: undefined,
+    };
+
+    // 유틸리티 함수를 통해 동적으로 생성된 쿼리 파라미터 객체 생성
+    const todoListRequest = getQueryParams(defaultRequestParams);
 
     const queryData = useQuery<TodoListProcessResponse[], Error>({
         queryKey: ["todos",{...todoListRequest}],
