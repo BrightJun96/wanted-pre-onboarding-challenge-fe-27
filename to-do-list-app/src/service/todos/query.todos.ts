@@ -26,10 +26,12 @@ export function useQueryTodos() {
         order,
     }
 
-    return  useQuery<TodoListItemResponse[]>({
+    const queryData = useQuery<TodoListItemResponse[]>({
         queryKey: ["todos",{...todoListRequest}],
         queryFn:() =>  fetchGetTodos(todoListRequest),
     })
+
+    return {...queryData,data:queryData.data??[]}
 
 }
 

@@ -11,18 +11,11 @@ function TodoListTable() {
     const handleSortChange = useSortHandler();
 
 
-    /**
-     * @todo rows를 계산해주는 레이어를 API 호출단계에서 분리해주기
-     */
-    const rows = todoList?todoList:[]
-
-
-
 
     return (
         <CustomTable
             columns={columns}
-            rows={rows}
+            rows={todoList}
             handleSortChange={handleSortChange}
         />
     );
