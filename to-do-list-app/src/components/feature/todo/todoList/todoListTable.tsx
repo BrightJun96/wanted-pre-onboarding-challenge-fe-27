@@ -7,18 +7,22 @@ import {useSortHandler} from "../../../table/sort/useSortHandler.ts";
 // 할일 목록 테이블
 function TodoListTable() {
 
-
-    const {data:todoList=[],isError} =useQueryTodos()
+    const {data:todoList=[],isError,isLoading} =useQueryTodos()
     const handleSortChange = useSortHandler();
 
-
+    if(isLoading){
+        return <p>로딩중...</p>
+    }
+     if (isError){
+        return <ErrorMessage/>
+    }
 
     return (
-      isError? <CustomTable
+      <CustomTable
             columns={columns}
             rows={todoList}
             handleSortChange={handleSortChange}
-        />:<ErrorMessage/>
+        />
     );
 }
 
