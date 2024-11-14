@@ -8,14 +8,14 @@ import {useSortHandler} from "../../../table/sort/useSortHandler.ts";
 // 할일 목록 테이블
 function TodoListTable() {
 
-    const {data:todoList=[],isError,isLoading} =useQueryTodos()
+    const {data:todoList=[],isLoading,error} =useQueryTodos()
     const handleSortChange = useSortHandler();
 
     if(isLoading){
         return <Loading/>
     }
-     if (isError){
-        return <ErrorMessage/>
+     if (error){
+        return <ErrorMessage error={error}/>
     }
 
     return (
