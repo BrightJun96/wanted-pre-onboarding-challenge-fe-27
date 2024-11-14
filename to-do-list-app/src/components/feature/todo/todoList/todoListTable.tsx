@@ -7,7 +7,7 @@ import {useSortHandler} from "../../../table/sort/useSortHandler.ts";
 function TodoListTable() {
 
 
-    const {data:todoList} =useQueryTodos()
+    const {data:todoList=[]} =useQueryTodos()
     const handleSortChange = useSortHandler();
 
 
