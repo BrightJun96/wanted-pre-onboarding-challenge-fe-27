@@ -6,13 +6,11 @@ import Loading from "../loading/loading.tsx";
 interface FetcherProps {
     children: ReactElement;
     query: () => UseQueryResult<any, Error>;
-    dataPropName?: string;
 }
 
-function Fetcher({children,query,dataPropName="data"}:FetcherProps) {
+function Fetcher({children,query,}:FetcherProps) {
 
     const {
-        data,
         error,
         isLoading
     } = query()
@@ -25,7 +23,7 @@ function Fetcher({children,query,dataPropName="data"}:FetcherProps) {
     }
 
     return (
-        React.cloneElement(children, { [dataPropName]:data })
+        React.cloneElement(children,)
     );
 }
 
