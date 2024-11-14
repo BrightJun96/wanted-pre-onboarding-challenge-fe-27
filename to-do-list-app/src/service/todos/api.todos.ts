@@ -9,7 +9,7 @@ export class TodoApiService implements TodoService {
 
 
     // 할일 목록 조회
-    async getTodos(request: TodoListRequest): Promise<any> {
+    async getTodos(request: TodoListRequest): Promise<TodoListProcessResponse[]|null> {
         const queryString = Object.fromEntries(
             Object.entries({
                 priorityFilter: request.priorityFilter,

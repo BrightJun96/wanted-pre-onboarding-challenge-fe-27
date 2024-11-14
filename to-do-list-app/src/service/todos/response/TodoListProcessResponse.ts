@@ -1,7 +1,7 @@
 import {PriorityToKOEnum} from "../../../type/feature/todo/types.ts";
 import {TodoListItemResponse} from "../types.ts";
 
-// API 응답받은 데이터를 클라이언트에서 원하는 방식으로 가공
+// 할일 목록 API 응답받은 데이터를 클라이언트에서 원하는 방식으로 가공
 export class TodoListProcessResponse{
     public readonly id: string;
     public readonly title: string;
