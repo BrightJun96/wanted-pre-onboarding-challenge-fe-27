@@ -1,11 +1,11 @@
 import {TODOS} from "../domainPath.ts";
 import networkInstance from "../network.instance.ts";
 import {IResponse} from "../network.types.ts";
-import {TodoService} from "./interface.todos.ts";
+import {CreateTodoService, DeleteTodoService, ReadTodoService, UpdateTodoService} from "./interface.todos.ts";
 import {TodoListProcessResponse} from "./response/TodoListProcessResponse.ts";
 import {AddTodoRequest, EditTodoRequest, TodoListItemResponse, TodoListRequest} from "./types.ts";
 
-export class TodoApiService implements TodoService {
+export class TodoApiService implements ReadTodoService<TodoListRequest, TodoListItemResponse>,CreateTodoService<AddTodoRequest>,UpdateTodoService<EditTodoRequest>,DeleteTodoService {
 
 
     // 할일 목록 조회
