@@ -1,7 +1,8 @@
+import {columns} from "../../../../constant/feature/todo/constant.ts";
 import {formatDate} from "../../../../helper/date.ts";
 import {useQueryTodos} from "../../../../service/todos/query.todos.ts";
 import {PriorityToKOEnum} from "../../../../type/feature/todo/types.ts";
-import CustomTable, {TableColumn} from "../../../table/customTable.tsx";
+import CustomTable from "../../../table/customTable.tsx";
 import {useSortHandler} from "../../../table/sort/useSortHandler.ts";
 
 // 할일 목록 테이블
@@ -11,20 +12,6 @@ function TodoListTable() {
     const {data:todoList} =useQueryTodos()
     const handleSortChange = useSortHandler();
 
-
-
-
-    /**
-     * @todo 추후에 다른 테이블 UI에 대한 다른 컬럼이 만들어질 수 있으니 테이블 컬럼을 만드는 함수 만들기
-     *
-     */
-    const columns:TableColumn[] = [
-        { key: 'title', name: '제목' },
-        { key: 'content', name: '내용' },
-        { key: 'priority', name: '우선순위' ,sortable:true},
-        { key: 'createdAt', name: '생성일',sortable:true },
-        { key: 'updatedAt', name: '수정일',sortable:true }
-    ]
 
     /**
      * @todo rows를 계산해주는 레이어를 API 호출단계에서 분리해주기
