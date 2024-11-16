@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import {useSearchParams} from "react-router-dom";
-import Search from "../../../search/search.tsx";
+import SearchButtons from "../../../search/searchButtons.tsx";
+import SearchFormWrapper from "../../../search/searchFormWrapper.tsx";
+import SearchInput from "../../../search/searchInput.tsx";
 
 // 할일 검색 컴포넌트 > Search 컴포넌트의 구체화된 컴포넌트
 function TodoSearch() {
@@ -33,7 +35,15 @@ function TodoSearch() {
 
 
     return (
-        <Search onSearch={handleSearch} onReset={handleReset} keyword={keyword} onKeywordChange={handleKeywordChange}/>
+        <SearchFormWrapper
+            onSearch={handleSearch}
+
+        >
+            {/*검색어 입력*/}
+            <SearchInput keyword={keyword} onKeywordChange={handleKeywordChange}/>
+            {/*검색,초기화 버튼*/}
+            <SearchButtons onSearch={handleSearch} onReset={handleReset} keyword={keyword}/>
+        </SearchFormWrapper>
     );
 }
 
