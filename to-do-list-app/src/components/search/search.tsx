@@ -11,6 +11,7 @@ interface ISearch {
 
 // 검색 컴포넌트
 // 역할 : 검색에 대한 최소한의 인터페이스만 구현한다. 구체화된 로직의 상위 구현 컴포넌트에서 해결한다.
+// 여러 컴포넌트에서 해당 컴포넌트의 구조가 동일하게 사용되는 경우 해당 컴포넌트를 사용, 아니라면 아래 하위 컴포넌트들을 조합하여 사용
 function Search({onSearch,onReset,keyword,onKeywordChange}:ISearch) {
     return (
         <SearchFormWrapper
