@@ -23,18 +23,13 @@ function Search({onSearch,onReset,keyword,onKeywordChange}:ISearch) {
 
     return (
         <form
-            className={"common-flex-column-container"}
+            className={"search-container"}
             onSubmit={handleSearch}
         >
-            {/*검색어*/}
-            <section
-            className={"search-container"}
-            >
                 {/*검색어 입력*/}
                 <SearchInput keyword={keyword} onKeywordChange={onKeywordChange}/>
                 {/*검색,초기화 버튼*/}
                 <SearchButtons onSearch={onSearch} onReset={onReset} keyword={keyword}/>
-            </section>
         </form>
     );
 }

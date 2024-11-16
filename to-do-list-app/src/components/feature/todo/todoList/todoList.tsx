@@ -3,6 +3,7 @@ import TodoFilter from "./todoFilter.tsx";
 import TodoListTable from "./todoListTable.tsx";
 import TodoSearch from "./todoSearch.tsx";
 
+// 할일 목록 컴포넌트
 function TodoList() {
 
     return (
