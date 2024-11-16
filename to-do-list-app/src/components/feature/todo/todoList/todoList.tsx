@@ -1,5 +1,5 @@
 import TodoAddButton from "./todoAddButton.tsx";
-import Filter from "./todoFilter.tsx";
+import TodoFilter from "./todoFilter.tsx";
 import TodoListTable from "./todoListTable.tsx";
 import TodoSearch from "./todoSearch.tsx";
 
@@ -12,7 +12,7 @@ function TodoList() {
                 {/*할일 추가 버튼*/}
                 <TodoAddButton/>
                 {/*목록 필터*/}
-                <Filter/>
+                <TodoFilter/>
                 {/*할일 목록*/}
                 <TodoListTable/>
             </div>
