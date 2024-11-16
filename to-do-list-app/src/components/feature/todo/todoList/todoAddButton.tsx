@@ -2,8 +2,6 @@ import {useNavigate} from "react-router-dom";
 
 /**
  * 할일 추가 버튼
- * @param props
- * @constructor
  */
 function TodoAddButton() {
     const navigate = useNavigate();
