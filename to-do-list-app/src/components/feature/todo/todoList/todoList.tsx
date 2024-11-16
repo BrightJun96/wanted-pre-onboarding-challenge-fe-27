@@ -1,5 +1,5 @@
-import Filter from "./filter/filter.tsx";
 import TodoAddButton from "./todoAddButton.tsx";
+import Filter from "./todoFilter.tsx";
 import TodoListTable from "./todoListTable.tsx";
 import TodoSearch from "./todoSearch.tsx";
 

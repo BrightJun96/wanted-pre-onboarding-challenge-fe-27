@@ -1,8 +1,9 @@
 import {useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import CustomSelect from "../../../../select/customSelect.tsx";
+import CustomSelect from "../../../select/customSelect.tsx";
 
-function Filter() {
+// 할일 목록 필터 > CustomSelect 컴포넌트를 구현한 컴포넌트
+function TodoFilter() {
 
    const [priorityFilter,setPriorityFilter] = useState<string>("")
    const [_,setSearchParams] = useSearchParams()
@@ -19,14 +20,12 @@ function Filter() {
     }
 
     return (
-        <>
             <CustomSelect
                 label={"우선순위"}
                 options={PriorityOptions}
                 value={priorityFilter}
                 onChange={handlePriorityChange }/>
-        </>
     );
 }
 
-export default Filter;
+export default TodoFilter;
