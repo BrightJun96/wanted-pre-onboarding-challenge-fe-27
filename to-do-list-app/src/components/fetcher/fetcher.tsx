@@ -5,15 +5,17 @@ import Loading from "../loading/loading.tsx";
 
 interface FetcherProps {
     children: ReactElement;
-    query: () => UseQueryResult<any, Error>;
+    query: (params?:any) => UseQueryResult<any, Error>;
+    params?:any
 }
 
-function Fetcher({children,query,}:FetcherProps) {
+function Fetcher({children,query,params}:FetcherProps) {
 
     const {
         error,
-        isLoading
-    } = query()
+        isLoading,
+
+    } = params?query(params):query()
 
     if(isLoading){
         return <Loading/>

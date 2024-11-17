@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import React from 'react';
 import {PriorityOptions,} from "../../../../constant/feature/todo/constant.ts";
+import useTodoDetailsDataMapping from "../../../../helper/todo/useTodoDetailsDataMapping.ts";
 import useTodoForm from "../../../../helper/todo/useTodoForm.ts";
 import {
     useMutationDeleteTodo,
@@ -27,49 +27,39 @@ export interface TodoFormInterface {
  * defer??
  * zod 추천
  */
-function TodoDetailsForm() {
+function TodoDetailsForm({detailsId}:{detailsId:string}) {
 
-const {todoForm,handleFormChange,setTodoForm,ButtonDisabledCondition}=useTodoForm()
-
+    const {todoForm,handleFormChange,setTodoForm,ButtonDisabledCondition}=useTodoForm()
 
     const {mutate:updateToDo} =useMutationUpdateTodo()
     const {mutate:deleteToDo} =useMutationDeleteTodo()
-
-
-    const params = useParams()
-    if(!params.id){
-        return <div>존재하지 않는 상세페이지입니다</div>
-    }
-
-    const {data:todoDetails}=useQueryTodoDetails(params.id)
+    const {data:todoDetails}=useQueryTodoDetails(detailsId)
 
     // 폼 제출
     async function handleFormSubmit(
         event: React.FormEvent<HTMLFormElement>
     ) {
-
         event.preventDefault();
-
-        if (params.id) {
-            updateToDo({id: params.id, editTodoRequest: todoForm})
+        if (detailsId) {
+            updateToDo({id: detailsId, editTodoRequest: todoForm})
         }
-
 
     }
 
-
-    useEffect(() => {
-
-
-        if(params.id&&todoDetails){
-            setTodoForm({
-                title: todoDetails.title,
-                content: todoDetails.content,
-                priority: todoDetails.priority
-            })
-
+    // 삭제
+    function handleDelete() {
+        if (detailsId) {
+            deleteToDo(detailsId)
         }
-    }, [params.id,todoDetails]);
+    }
+
+    // 상세 데이터 매핑
+    useTodoDetailsDataMapping({
+        detailsId,
+        todoDetails,
+        setTodoForm
+    })
+
 
     return (
             <form
@@ -102,11 +92,7 @@ const {todoForm,handleFormChange,setTodoForm,ButtonDisabledCondition}=useTodoFor
                     label={"수정"} />
                <CustomButton
                     label={"삭제"}
-                    onClick={() => {
-                        if (params.id) {
-                            deleteToDo(params.id)
-                        }
-                    }}
+                    onClick={handleDelete}
                 />
             </form>
     );

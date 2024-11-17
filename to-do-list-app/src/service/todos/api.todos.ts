@@ -33,7 +33,7 @@ export class TodoApiService implements CRUDTodoService {
     }
 
     // 할일 단일 조회
-    async getTodoById(id: string): Promise<any> {
+    async getTodoById(id: string): Promise<TodoListItemResponse> {
         const response = await networkInstance(`${TODOS}/${id}`, {
             method: "GET",
             headers: {
@@ -46,8 +46,7 @@ export class TodoApiService implements CRUDTodoService {
             const result = await response.json();
             return result.data;
         } else {
-            window.alert("할일을 불러오는데 실패했습니다.");
-            return null;
+            throw new Error("할일을 불러오는데 실패했습니다.");
         }
     }
 
