@@ -1,11 +1,13 @@
-import TodoDetailsForm from "../../../components/feature/todo/todoDetails/todoDetailsForm.tsx";
-import {TODO_PAGE_ENUM} from "../../../type/feature/todo/types.ts";
+import TodoFormContainer from "../../../components/feature/todo/todoFormContainer.tsx";
+import TodoRegisterForm from "../../../components/feature/todo/todoRegister/todoRegisterForm.tsx";
 
+// 할일 등록 페이지
 function TodoRegister() {
     return (
-        <TodoDetailsForm
-        pageType={TODO_PAGE_ENUM.REGISTER}
-        />
+        <TodoFormContainer>
+            <TodoRegisterForm
+            />
+        </TodoFormContainer>
     );
 }
 

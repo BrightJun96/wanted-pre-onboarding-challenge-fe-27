@@ -36,10 +36,10 @@ export function useQueryTodos() : UseQueryResult<TodoListProcessResponse[], Erro
 
 // 할일 상세 조회
 export function useQueryTodoDetails(detailsId:string) {
+
     return  useQuery({
         queryKey: [TODOQueryKey.detail,detailsId],
         queryFn: ()=>fetchGetTodoById(detailsId),
-        enabled: !!detailsId
     })
 
 }
