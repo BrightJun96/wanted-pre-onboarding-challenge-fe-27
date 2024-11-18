@@ -1,14 +1,14 @@
 import AuthForm, {AuthFormType} from "../../components/feature/auth/authForm.tsx";
-import {authStorage} from "../../helper/auth/authStorage.ts";
-import {fetchLogin} from "../../service/auth/api.auth.ts";
 import {AUTH_PAGE_ENUM} from "../../constant/feature/auth/constant.ts";
+import {authStorage} from "../../helper/auth/authStorage.ts";
+import {authService} from "../../service/auth/api.auth.ts";
 
 /**
  * 로그인 페이지
          */
 function Login() {
     async function networkLogin(form:AuthFormType) {
-        const response  = await fetchLogin(form);
+        const response  = await authService.login(form);
 
         const result = await response.json();
 

@@ -1,7 +1,7 @@
 import AuthForm, {AuthFormType} from "../../components/feature/auth/authForm.tsx";
 import {AUTH_PAGE_ENUM} from "../../constant/feature/auth/constant.ts";
 import {authStorage} from "../../helper/auth/authStorage.ts";
-import {fetchSignup} from "../../service/auth/api.auth.ts";
+import {authService} from "../../service/auth/api.auth.ts";
 
 /**
  * 회원가입 페이지
@@ -10,7 +10,7 @@ function Signup() {
 
 
     async function networkSignup(form:AuthFormType) {
-        const response  = await fetchSignup(form);
+        const response  = await authService.signup(form);
 
         const result = await response.json();
 

@@ -1,26 +1,30 @@
-import networkInstance from "../network.instance.ts";
 import {AUTH} from "../domainPath.ts";
+import networkInstance from "../network.instance.ts";
+import {AbstractAuthService} from "./interface.auth.ts";
 import {LoginRequest, SignupRequest} from "./types.ts";
 
-// 회원가입
-export async function fetchSignup(signupRequest:SignupRequest){
-    return networkInstance(`${AUTH}/create`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupRequest),
-    })
+// 로그인,회원가입 추상화 인터페이스 구현한 클래스
+class AuthService implements AbstractAuthService{
+    async login(request: LoginRequest): Promise<Response> {
+        return networkInstance(`${AUTH}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request),
+        })
+    }
+    async signup(request: SignupRequest): Promise<Response> {
+        return networkInstance(`${AUTH}/create`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request),
+        })
+    }
 }
 
-// 로그인
-export async function fetchLogin(loginRequest:LoginRequest){
-    return networkInstance(`${AUTH}/login`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginRequest),
-    })
+export const authService = new AuthService();
 
-}
+
