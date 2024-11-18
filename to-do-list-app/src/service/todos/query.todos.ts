@@ -1,4 +1,5 @@
 import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/react-query";
+import {useNavigate} from "react-router-dom";
 import useQueryString from "../../helper/useQueryString.ts";
 import {todoApiService} from "./api.todos.ts";
 import {TODOQueryKey} from "./query.key.ts";
@@ -87,11 +88,14 @@ export function useMutationUpdateTodo() {
 // 할일 삭제
 export function useMutationDeleteTodo() {
     const queryClient = useQueryClient()
+    const navigate = useNavigate(); // useNavigate 훅 추가
 
     return useMutation({
         mutationFn: fetchDeleteTodo,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['todos'] })
+            queryClient.invalidateQueries({ queryKey: [TODOQueryKey.list] })
+            navigate("/todo") // 목록으로 이동
+
         },
         onError:(error) =>{
             if(error) {
