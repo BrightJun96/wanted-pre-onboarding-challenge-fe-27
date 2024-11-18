@@ -24,20 +24,21 @@ export interface TodoFormInterface {
 function TodoDetailsForm({detailsId}:{detailsId:string}) {
 
     const {todoForm,setTodoForm,ButtonDisabledCondition,fields}=useTodoForm()
-    const {mutate:updateToDo} =useMutationUpdateTodo()
-    const {mutate:deleteToDo} =useMutationDeleteTodo()
+    const {mutate:updateToDo,isPending:isUpdatePending} =useMutationUpdateTodo()
+    const {mutate:deleteToDo,isPending:isDeletePending} =useMutationDeleteTodo()
     const {data:todoDetails}=useQueryTodoDetails(detailsId)
 
 
     const buttons:AbstractButtonType[] =[
         {
             type: "submit",
-            disabled: ButtonDisabledCondition,
-            label: "수정",
+            disabled: isUpdatePending||ButtonDisabledCondition,
+            label: isUpdatePending?"수정중..":"수정",
         },
         {
-            label: "삭제",
+            label: isDeletePending?"삭제중..": "삭제",
             type: "button",
+            disabled: isDeletePending,
             onClick: () => deleteToDo(detailsId)
         }
     ]
