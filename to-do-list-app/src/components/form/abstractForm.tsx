@@ -6,16 +6,20 @@ import CustomInput from "../input/customInput.tsx";
 import CustomRadio from "../radio/customRadio.tsx";
 
 // 공통 폼
-function AbstractForm({children}:{
-    children: React.ReactNode
+function AbstractForm({children,className,onSubmit}:{
+    children: React.ReactNode,
+    className?: string;
+    onSubmit:() => void
 }) {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        onSubmit()
 
     }
     return (
         <form
+            className={className}
         onSubmit={handleSubmit}
         >
             {children}
@@ -75,15 +79,15 @@ function Fields({fields}:{fields: FieldType[]}) {
     );
 }
 
-interface ButtonType{
+export interface AbstractButtonType{
     type:"button" | "submit" | "reset"
     label: string;
-    onClick: () => void;
-    disabled: boolean;
+    onClick?: () => void;
+    disabled?: boolean;
 }
 
 // 버튼
-function Buttons({buttons}:{buttons:ButtonType[]}){
+function Buttons({buttons}:{buttons:AbstractButtonType[]}){
     return (
         <>
             {buttons.map((button,index) => (
