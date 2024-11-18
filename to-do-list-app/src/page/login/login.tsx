@@ -1,6 +1,5 @@
 import AuthForm, {AuthFormType} from "../../components/feature/auth/authForm.tsx";
 import {AUTH_PAGE_ENUM} from "../../constant/feature/auth/constant.ts";
-import {authStorage} from "../../helper/auth/authStorage.ts";
 import {authService} from "../../service/auth/api.auth.ts";
 
 /**
@@ -8,22 +7,22 @@ import {authService} from "../../service/auth/api.auth.ts";
          */
 function Login() {
     async function networkLogin(form:AuthFormType) {
-        const response  = await authService.login(form);
+        try {
+            const success = await authService.login(form);
+            if (success) {
+                alert("로그인 성공");
+                window.location.href = "/todo";
 
-        const result = await response.json();
-
-        if(!response.ok){
-            window.alert(result.details)
-            return response.ok
-
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+                alert(error.message);
+            } else {
+                console.error("An unknown error occurred");
+            }
         }
 
-        if(response.ok){
-            window.alert(result.message)
-            authStorage.setToken(result.token)
-
-            return response.ok
-        }
 
     }
     return (

@@ -1,9 +1,8 @@
 import React from 'react';
+import {FLEX_COLUMN_CONTAINER_CLASSNAME, FLEX_ROW_CONTAINER_CLASSNAME} from "../../../constant/css/constant.ts";
 import {AUTH_PAGE_ENUM, AUTH_PAGE_TYPE} from "../../../constant/feature/auth/constant.ts";
 import "../../../css/auth/authForm.css"
 import "../../../css/index.css"
-import {FLEX_COLUMN_CONTAINER_CLASSNAME, FLEX_ROW_CONTAINER_CLASSNAME} from "../../../constant/css/constant.ts";
-import {useNavigate} from "react-router-dom";
 import CustomInput from "../../input/customInput.tsx";
 
 export interface AuthFormType {
@@ -11,7 +10,7 @@ export interface AuthFormType {
     password: string;
 }
 function AuthForm({networkRequest,pageType}:{
-    networkRequest:(form:AuthFormType)=>Promise<boolean|undefined> // API 요청 함수
+    networkRequest:(form:AuthFormType)=>Promise<void> // API 요청 함수
     pageType: AUTH_PAGE_TYPE // 페이지 타입
 }) {
 
@@ -20,14 +19,11 @@ function AuthForm({networkRequest,pageType}:{
         password: ""
     })
 
-   const navigate =  useNavigate()
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-       const result = await networkRequest(form)
-        if(result) {
-            navigate("/todo")
-        }
+      await networkRequest(form)
+
 
 
     }
