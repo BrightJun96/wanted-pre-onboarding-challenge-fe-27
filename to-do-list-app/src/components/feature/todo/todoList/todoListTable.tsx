@@ -1,7 +1,7 @@
 import {CellClickArgs} from "react-data-grid";
 import {useNavigate} from "react-router-dom";
 import {columns} from "../../../../constant/feature/todo/constant.ts";
-import useNavigateToFirstItem from "../../../../helper/todo/useNavigateToFirstItem.ts";
+import useNavigateToFirstItem from "../../../../helper/useNavigateToFirstItem.ts";
 import {useQueryTodos} from "../../../../service/todos/query.todos.ts";
 import {TodoListProcessResponse} from "../../../../service/todos/response/TodoListProcessResponse.ts";
 import Fetcher from "../../../fetcher/fetcher.tsx";
@@ -28,8 +28,6 @@ function TodoListTable() {
          getId:(item)=>item.id,
          generatePath:(id)=>`/todo/${id}`
    })
-
-
 
     return (
         <Fetcher query={useQueryTodos} >
