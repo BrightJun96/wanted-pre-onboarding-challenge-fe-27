@@ -42,14 +42,6 @@ function TodoDetailsForm({detailsId}:{detailsId:string}) {
         }
     ]
 
-    // 폼 제출
-     function handleFormSubmit(
-    ) {
-            updateToDo({id: detailsId, editTodoRequest: todoForm})
-
-    }
-
-
 
     // 상세 데이터 매핑
     useTodoDetailsDataMapping({
@@ -60,7 +52,7 @@ function TodoDetailsForm({detailsId}:{detailsId:string}) {
 
     return (
             <AbstractForm
-            onSubmit={handleFormSubmit}
+            onSubmit={() => updateToDo({id: detailsId, editTodoRequest: todoForm})}
             className={"todo-details-form-container"}
             >
                 {/*필드*/}
