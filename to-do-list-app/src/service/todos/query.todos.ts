@@ -1,9 +1,11 @@
 import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/react-query";
+import {Simulate} from "react-dom/test-utils";
 import useQueryString from "../../helper/useQueryString.ts";
 import {todoApiService} from "./api.todos.ts";
 import {TODOQueryKey} from "./query.key.ts";
 import {TodoListProcessResponse} from "./response/TodoListProcessResponse.ts";
 import {EditTodoRequest, TodoListRequest} from "./types.ts";
+
 
 const {
     getTodos : fetchGetTodos,
@@ -54,6 +56,11 @@ export function useMutationAddTodo() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [TODOQueryKey.list] })
         },
+        onError:(error)=>{
+            if(error) {
+                alert("할일 추가에 실패했습니다.")
+            }
+        }
     })
 }
 
@@ -69,8 +76,12 @@ export function useMutationUpdateTodo() {
         onSuccess: (_,variables) => {
             queryClient.invalidateQueries({ queryKey: [TODOQueryKey.list] })
             queryClient.invalidateQueries({ queryKey: [TODOQueryKey.detail,variables.id] })
-
         },
+        onError:(error) =>{
+            if(error) {
+                alert("할일 수정에 실패했습니다.")
+            }
+        }
     })
 }
 
@@ -83,5 +94,10 @@ export function useMutationDeleteTodo() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['todos'] })
         },
+        onError:(error) =>{
+            if(error) {
+                alert("할일 삭제에 실패했습니다.")
+            }
+        }
     })
 }
