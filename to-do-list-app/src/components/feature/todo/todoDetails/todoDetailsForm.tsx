@@ -1,5 +1,3 @@
-import React from 'react';
-import {PriorityOptions,} from "../../../../constant/feature/todo/constant.ts";
 import useTodoDetailsDataMapping from "../../../../helper/todo/useTodoDetailsDataMapping.ts";
 import useTodoForm from "../../../../helper/todo/useTodoForm.ts";
 import {
@@ -8,9 +6,7 @@ import {
     useQueryTodoDetails
 } from "../../../../service/todos/query.todos.ts";
 import {PriorityType} from "../../../../type/feature/todo/types.ts";
-import CustomButton from "../../../button/customButton.tsx";
-import CustomInput from "../../../input/customInput.tsx";
-import CustomRadio from "../../../radio/customRadio.tsx";
+import AbstractForm, {AbstractButtonType} from "../../../form/abstractForm.tsx";
 
 export interface TodoFormInterface {
     title: string;
@@ -27,68 +23,43 @@ export interface TodoFormInterface {
  */
 function TodoDetailsForm({detailsId}:{detailsId:string}) {
 
-    const {todoForm,handleFormChange,setTodoForm,ButtonDisabledCondition}=useTodoForm()
-
+    const {todoForm,setTodoForm,ButtonDisabledCondition,fields}=useTodoForm()
     const {mutate:updateToDo} =useMutationUpdateTodo()
     const {mutate:deleteToDo} =useMutationDeleteTodo()
     const {data:todoDetails}=useQueryTodoDetails(detailsId)
 
-    // 폼 제출
-    async function handleFormSubmit(
-        event: React.FormEvent<HTMLFormElement>
-    ) {
-            event.preventDefault();
-            updateToDo({id: detailsId, editTodoRequest: todoForm})
 
-    }
+    const buttons:AbstractButtonType[] =[
+        {
+            type: "submit",
+            disabled: ButtonDisabledCondition,
+            label: "수정",
+        },
+        {
+            label: "삭제",
+            type: "button",
+            onClick: () => deleteToDo(detailsId)
+        }
+    ]
 
-    // 삭제
-    function handleDelete() {
-            deleteToDo(detailsId)
-    }
 
     // 상세 데이터 매핑
     useTodoDetailsDataMapping({
-        detailsId,
         todoDetails,
         setTodoForm
     })
 
 
     return (
-            <form
-                className={"todo-details-form-container"}
-            onSubmit={handleFormSubmit}
+            <AbstractForm
+            onSubmit={() => updateToDo({id: detailsId, editTodoRequest: todoForm})}
+            className={"todo-details-form-container"}
             >
-                {/*제목*/}
-                <CustomInput
-                    label={"제목"}
-                    value={todoForm.title}
-                    onChange={(value) => handleFormChange("title",value)}
-                    inputType={"text"}/>
-                {/*내용 */}
-                <CustomInput
-                    label={"내용"}
-                    value={todoForm.content}
-                    onChange={(value) => handleFormChange("content",value)}
-                    inputType={"text"}/>
-                {/*우선순위*/}
-                <CustomRadio
-                    value={todoForm.priority}
-                    onChange={(value) => handleFormChange("priority",value)}
-                    label={"우선순위"}
-                    options={PriorityOptions}
-                />
-
-                <CustomButton
-                    type={"submit"}
-                    disabled={ButtonDisabledCondition}
-                    label={"수정"} />
-               <CustomButton
-                    label={"삭제"}
-                    onClick={handleDelete}
-                />
-            </form>
+                {/*필드*/}
+                <AbstractForm.Fields fields={fields}/>
+                {/*버튼*/}
+                <AbstractForm.Buttons buttons={buttons}/>
+            </AbstractForm>
     );
 }
 

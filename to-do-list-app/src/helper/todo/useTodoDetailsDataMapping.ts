@@ -3,18 +3,17 @@ import {TodoFormInterface} from "../../components/feature/todo/todoDetails/todoD
 import {TodoListItemResponse} from "../../service/todos/types.ts";
 
 function useTodoDetailsDataMapping({
-    detailsId,
     todoDetails,
     setTodoForm
                                    }:{
-    detailsId:string,
     todoDetails:TodoListItemResponse | undefined,
     setTodoForm: React.Dispatch<React.SetStateAction<TodoFormInterface>>
 }) {
+
     useEffect(() => {
 
 
-        if(detailsId&&todoDetails){
+        if(todoDetails){
             setTodoForm({
                 title: todoDetails.title,
                 content: todoDetails.content,
@@ -22,7 +21,7 @@ function useTodoDetailsDataMapping({
             })
 
         }
-    }, [detailsId,todoDetails]);
+    }, [todoDetails]);
 }
 
 export default useTodoDetailsDataMapping;
