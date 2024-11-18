@@ -20,8 +20,6 @@ export interface TodoFormInterface {
 
 
 /**
- * @todo 등록,상세 분리 필요 현재 등록,상세 로직들이 의도에 맞지 않게 섞여있어 SRP에 위반
- * 에러,로딩시 처리 필요
  * 페이지 로딩시,데이터 호출 > 현재는 페이지를 다 불러오고 데이더 호출 이또한 react-router-dom loader활용
  * 에러 났을 때도 router에서 해결가능
  * defer??
@@ -39,18 +37,14 @@ function TodoDetailsForm({detailsId}:{detailsId:string}) {
     async function handleFormSubmit(
         event: React.FormEvent<HTMLFormElement>
     ) {
-        event.preventDefault();
-        if (detailsId) {
+            event.preventDefault();
             updateToDo({id: detailsId, editTodoRequest: todoForm})
-        }
 
     }
 
     // 삭제
     function handleDelete() {
-        if (detailsId) {
             deleteToDo(detailsId)
-        }
     }
 
     // 상세 데이터 매핑
