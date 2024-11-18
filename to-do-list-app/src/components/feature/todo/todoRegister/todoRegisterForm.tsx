@@ -6,13 +6,12 @@ import AbstractForm, {AbstractButtonType} from "../../../form/abstractForm.tsx";
 function TodoRegisterForm() {
     const { todoForm, ButtonDisabledCondition,fields } = useTodoForm();
 
-    const {mutate:addToDo} =useMutationAddTodo()
-
+    const {mutate:addToDo,isPending} =useMutationAddTodo()
     const buttons:AbstractButtonType[] =[
         {
             type: "submit",
-            disabled: ButtonDisabledCondition,
-            label: "등록",
+            disabled:isPending|| ButtonDisabledCondition,
+            label:isPending? "등록중..":"등록",
         }
     ]
     return (
