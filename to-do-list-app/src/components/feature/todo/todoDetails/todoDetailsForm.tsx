@@ -49,7 +49,6 @@ function TodoDetailsForm({detailsId}:{detailsId:string}) {
 
     // 상세 데이터 매핑
     useTodoDetailsDataMapping({
-        detailsId,
         todoDetails,
         setTodoForm
     })
