@@ -1,5 +1,6 @@
 import AuthForm, {AuthFormType} from "../../components/feature/auth/authForm.tsx";
 import {AUTH_PAGE_ENUM} from "../../constant/feature/auth/constant.ts";
+import {executeNetworkRequest, handleNetworkError, handleNetworkSuccess} from "../../helper/networkUtils.ts";
 import {authService} from "../../service/auth/api.auth.ts";
 
 /**
@@ -9,21 +10,12 @@ function Signup() {
 
 
     async function networkSignup(form:AuthFormType) {
-        try {
-            const success = await authService.signup(form);
-            if (success) {
-                alert("회원가입 성공");
-                window.location.href = "/todo";
-            }
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(error.message);
-                alert(error.message);
-
-            } else {
-                console.error("An unknown error occurred");
-            }
-        }
+        return executeNetworkRequest<AuthFormType,boolean>({
+            requestFunction: authService.signup,
+            requestParams: form,
+            onSuccess: ()=>handleNetworkSuccess({alertMessage:"회원가입 성공",redirectUrl:"/todo"}),
+            onError: handleNetworkError
+        })
     }
     return (
         <AuthForm
