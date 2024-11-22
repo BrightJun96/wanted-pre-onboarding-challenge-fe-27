@@ -32,7 +32,7 @@ export default AbstractForm;
 
 // 필드 타입
 export interface FieldType{
-    type: "text" | "radio";
+    type: "text" | "radio"|"password";
     label: string;
     value: string;
     options?:AbstractOption[];
@@ -56,6 +56,16 @@ function Fields({fields}:{fields: FieldType[]}) {
                            inputType="text"
                        />
                    );
+              case "password":
+                     return (
+                          <CustomInput
+                            key={index}
+                            label={field.label}
+                            value={field.value}
+                            onChange={field.onChange}
+                            inputType="password"
+                          />
+                     );
                case "radio":
                    if (field.options) {
                        return (
