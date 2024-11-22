@@ -1,9 +1,9 @@
-import React from 'react';
-import {FLEX_COLUMN_CONTAINER_CLASSNAME, FLEX_ROW_CONTAINER_CLASSNAME} from "../../../constant/css/constant.ts";
+import {FLEX_COLUMN_CONTAINER_CLASSNAME} from "../../../constant/css/constant.ts";
 import {AUTH_PAGE_ENUM, AUTH_PAGE_TYPE} from "../../../constant/feature/auth/constant.ts";
 import "../../../css/auth/authForm.css"
 import "../../../css/index.css"
-import CustomInput from "../../input/customInput.tsx";
+import useAuthForm from "../../../helper/auth/useAuthForm.ts";
+import AbstractForm, {AbstractButtonType} from "../../form/abstractForm.tsx";
 
 export interface AuthFormType {
     email: string;
@@ -14,57 +14,30 @@ function AuthForm({networkRequest,pageType}:{
     pageType: AUTH_PAGE_TYPE // 페이지 타입
 }) {
 
-    const [form,setForm] = React.useState<AuthFormType>({
-        email: "",
-        password: ""
-    })
+    const {form,fields}=useAuthForm()
 
-
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
+    async function handleSubmit() {
       await networkRequest(form)
-
-
-
     }
 
-    function handleSetFormValue(key: keyof AuthFormType, value: string) {
-        setForm({
-            ...form,
-            [key]: value
-        })
-    }
+    const button:AbstractButtonType[]=[{
+        label: AUTH_PAGE_ENUM.SIGNUP === pageType ? "회원가입" : "로그인",
+        type: "submit",
+        disabled: false,
+    }]
+
+
     return (
         <div className={FLEX_COLUMN_CONTAINER_CLASSNAME}>
             <h1>{pageType===AUTH_PAGE_ENUM.SIGNUP?"회원가입":"로그인"}</h1>
-        <form
-            className={`${FLEX_COLUMN_CONTAINER_CLASSNAME} auth-form-inner-container`}
-            onSubmit={handleSubmit}
-
-        >
-            <CustomInput
-                label={"이메일"}
-                value={form.email}
-                onChange={(value) => handleSetFormValue("email",value)}
-                inputType={"email"}
-            />
-            <CustomInput
-                label={"비밀번호"}
-                value={form.password}
-                onChange={(value) => handleSetFormValue("password",value)}
-                inputType={"password"}
-            />
-            <div
-                className={FLEX_ROW_CONTAINER_CLASSNAME}
-
+            <AbstractForm
+                onSubmit={handleSubmit}
+                className={`${FLEX_COLUMN_CONTAINER_CLASSNAME} auth-form-inner-container`}
             >
-                <button
-                    className={"custom-button"}
-                    type="submit">{
-                    AUTH_PAGE_ENUM.SIGNUP === pageType ? "회원가입" : "로그인"
-                }</button>
-            </div>
-        </form>
+               <AbstractForm.Fields fields={fields}></AbstractForm.Fields>
+                <AbstractForm.Buttons buttons={button}/>
+            </AbstractForm>
+
         </div>
     );
 }

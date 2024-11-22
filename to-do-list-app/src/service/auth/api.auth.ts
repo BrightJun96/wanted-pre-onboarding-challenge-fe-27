@@ -35,6 +35,7 @@ class AuthService implements AbstractAuthService{
 
     private async afterAuthAction(response:Response): Promise<boolean> {
         const result = await response.json();
+        console.log("result",result)
         if (!response.ok) {
             console.error(result.details);
             throw new Error(result.details);
