@@ -6,6 +6,12 @@ import {LoginRequest, SignupRequest} from "./types.ts";
 
 // 로그인,회원가입 추상화 인터페이스 구현한 클래스
 class AuthService implements AbstractAuthService{
+
+    constructor() {
+        this.login = this.login.bind(this);
+        this.signup = this.signup.bind(this);
+    }
+
     async login(request: LoginRequest): Promise<boolean> {
         const response = await networkInstance(`${AUTH}/login`, {
             method: "POST",
@@ -28,14 +34,12 @@ class AuthService implements AbstractAuthService{
             },
             body: JSON.stringify(request),
         })
-
        return  await this.afterAuthAction(response)
 
     }
 
     private async afterAuthAction(response:Response): Promise<boolean> {
         const result = await response.json();
-        console.log("result",result)
         if (!response.ok) {
             console.error(result.details);
             throw new Error(result.details);
